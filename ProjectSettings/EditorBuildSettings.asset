@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/MainScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 2a2d93beda21d4e7b88abed32fea64b0,
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 8ca9d4fa1ab563942928f1e6cf6bc56c,
       type: 2}
-    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 1c3685f94a2504028b426958f2b3434e,
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: f8b6a65d11a8ca14d956e39424f90007,
       type: 2}
-    xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: 69ab72992ee17428588743b7d095ad8f,
+    xr.sdk.mock-hmd.settings: {fileID: 11400000, guid: 7ae3a2c307a08e348947821bd04465df,
       type: 2}
