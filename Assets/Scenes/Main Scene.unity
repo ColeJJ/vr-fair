@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1953,6 +1953,7 @@ GameObject:
   - component: {fileID: 1415225704}
   - component: {fileID: 1415225703}
   - component: {fileID: 1415225702}
+  - component: {fileID: 1415225706}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2148,6 +2149,24 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1415225706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415225700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a2a9c34df4095f47b9ca8f975175f5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Device: 0
+  m_PoseSource: 2
+  m_PoseProviderComponent: {fileID: 0}
+  m_TrackingType: 0
+  m_UpdateType: 0
+  m_UseRelativeTransform: 0
 --- !u!1 &1477713045
 GameObject:
   m_ObjectHideFlags: 0
@@ -2263,8 +2282,8 @@ MonoBehaviour:
   m_Camera: {fileID: 1415225705}
   m_OriginBaseGameObject: {fileID: 1752547566}
   m_CameraFloorOffsetObject: {fileID: 188771006}
-  m_RequestedTrackingOriginMode: 0
-  m_CameraYOffset: 1.1
+  m_RequestedTrackingOriginMode: 1
+  m_CameraYOffset: 2
 --- !u!4 &1752547569
 Transform:
   m_ObjectHideFlags: 0
@@ -2329,7 +2348,7 @@ MonoBehaviour:
   m_System: {fileID: 1752547574}
   m_TurnSpeed: 60
   m_LeftHandTurnAction:
-    m_UseReference: 0
+    m_UseReference: 1
     m_Action:
       m_Name: Left Hand Turn
       m_Type: 0
@@ -2341,7 +2360,7 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 0}
   m_RightHandTurnAction:
-    m_UseReference: 1
+    m_UseReference: 0
     m_Action:
       m_Name: Right Hand Turn
       m_Type: 0
