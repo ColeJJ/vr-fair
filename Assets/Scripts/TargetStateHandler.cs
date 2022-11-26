@@ -21,6 +21,10 @@ public class TargetStateHandler : MonoBehaviour
         
     }
 
+    public void OnBulletCollision() {
+        UpdateTargetState(TargetState.Down);
+    }
+
     public void UpdateTargetState(TargetState state) {
         if(state == this.state) { return; }
 
@@ -35,4 +39,6 @@ public class TargetStateHandler : MonoBehaviour
             transform.Rotate(90, 0, 0);
         }
     }
+
+
 }
