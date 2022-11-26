@@ -9,25 +9,13 @@ public enum TargetState {
 
 public class TargetStateHandler : MonoBehaviour
 {
+    public TargetState state = TargetState.Down;
 
-    private TargetState state = TargetState.Up;
-    // public TargetState state {
-    //     get { return state; }
-    //     set {
-    //         if(value != state) {
-    //             state = value;
-    //             ChangeTargetPosition(state);
-    //         }
-    //     }
-    // }
-
-    // Start is called before the first frame update
     void Start()
     {
         UpdateTargetTransformation(this.state);
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -42,7 +30,7 @@ public class TargetStateHandler : MonoBehaviour
 
     private void UpdateTargetTransformation(TargetState state) {
         if(state == TargetState.Up) {
-            transform.Rotate(0, 0, 0);
+            transform.Rotate(-90, 0, 0);
         } else {
             transform.Rotate(90, 0, 0);
         }
