@@ -21,14 +21,17 @@ public class FireBulletOnActivate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // Test input for the Game Scene
+        if (Input.GetMouseButtonDown(0)) {
+            FireBullet(new ActivateEventArgs());
+        }
     }
 
     private void FireBullet(ActivateEventArgs arg)
     {
         GameObject spawnedBullet = Instantiate(bullet);
         spawnedBullet.transform.position = spawnPoint.position;
-        spawnPoint.GetComponent<Rigidbody>().velocity = spawnPoint.forward * fireSpeed;
+        spawnedBullet.GetComponent<Rigidbody>().velocity = spawnPoint.forward * fireSpeed;
         Destroy(spawnedBullet, 5);
     }
 }
