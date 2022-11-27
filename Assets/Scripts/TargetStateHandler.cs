@@ -10,8 +10,9 @@ public enum TargetState {
 public class TargetStateHandler : MonoBehaviour
 {
     public TargetState state = TargetState.Up;
+    public ScoreboardManager scoreboardManager;
 
-    HingeJoint targetJoint;
+    private HingeJoint targetJoint;
 
     void Start()
     {
@@ -29,8 +30,9 @@ public class TargetStateHandler : MonoBehaviour
         }
     }
 
-    public void OnBulletCollision() {
-        print("Hit!");
+    private void OnCollisionEnter(Collision collision)
+    {
+        scoreboardManager.UpdateScore(1);
     }
 
     public void UpdateTargetState(TargetState state) { 

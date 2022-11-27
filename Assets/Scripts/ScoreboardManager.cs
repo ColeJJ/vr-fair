@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class TargetCollisionDetection : MonoBehaviour
+public class ScoreboardManager : MonoBehaviour
 {
 
-    public TargetStateHandler stateHandler;
+    public int score = 0;
+    public TMP_Text scoreText;
 
     // Start is called before the first frame update
     void Start()
@@ -19,8 +21,9 @@ public class TargetCollisionDetection : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        stateHandler.OnBulletCollision();
+    public void UpdateScore(int addScore) {
+        print("Update score!");
+        score += addScore;
+        scoreText.text = score.ToString();
     }
 }
