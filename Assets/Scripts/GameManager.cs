@@ -8,14 +8,15 @@ public class GameManager : MonoBehaviour
     public TargetStateHandler[] targetStateHandlers;
     public ScoreboardManager scoreboardManager;
 
-    public int targetThreshold;
+    public int spawnCount;
+    public float spawnDelay;
     public float gameTime;
     private bool timerIsRunning = true;
-    
+    private bool targetsSpawning = false;
+
     void Start()
     {
         UpdateTargets(targetStateHandlers, TargetState.Down);
-        InvokeRepeating("SpawnRandomTargetsIfNeeded", 2f, 2f);
     }
 
     void Update()
@@ -23,9 +24,9 @@ public class GameManager : MonoBehaviour
         if (timerIsRunning) {
             if (gameTime > 0) {
                 gameTime -= Time.deltaTime;
+                SpawnRandomTargetsIfNeeded();
             } else {
                 gameTime = 0;
-                CancelInvoke();
                 UpdateTargets(targetStateHandlers, TargetState.Down);
                 timerIsRunning = false;
             }
@@ -34,19 +35,22 @@ public class GameManager : MonoBehaviour
     }
 
     private void SpawnRandomTargetsIfNeeded() {
-        if(targetStateHandlers.Where(n => n.state == TargetState.Up).Any()) { return; }
-        StartCoroutine(SpawnRandomTargets(targetThreshold, 1f));
+        if(targetStateHandlers.Where(n => n.state == TargetState.Up).Any() || targetsSpawning) { return; }
+        StartCoroutine(SpawnRandomTargets(spawnCount, spawnDelay));
     }
 
-    private IEnumerator SpawnRandomTargets(int threshold, float delay) {
+    private IEnumerator SpawnRandomTargets(int count, float delay) {
+        targetsSpawning = true;
         yield return new WaitForSeconds(delay);
-        TargetStateHandler[] targetsToSpawn = SelectRandomListItems(targetStateHandlers, threshold);
+        TargetStateHandler[] targetsToSpawn = SelectRandomListItems(targetStateHandlers, count);
         UpdateTargets(targetsToSpawn, TargetState.Up);
+        yield return new WaitForSeconds(1f);
+        targetsSpawning = false;
     }
 
-    private TargetStateHandler[] SelectRandomListItems(TargetStateHandler[] targetStateHandlers, int threshold) {
+    private TargetStateHandler[] SelectRandomListItems(TargetStateHandler[] targetStateHandlers, int count) {
         var mutableList = new List<TargetStateHandler>(targetStateHandlers);
-        int removeCount = mutableList.Count - threshold;
+        int removeCount = mutableList.Count - count;
         for(int i = 0; i < removeCount; i++) {
             int index = Random.Range(0, mutableList.Count);
             mutableList.RemoveAt(index);

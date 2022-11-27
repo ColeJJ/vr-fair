@@ -933,7 +933,8 @@ MonoBehaviour:
   - {fileID: 314341917}
   - {fileID: 1779973825}
   scoreboardManager: {fileID: 385966577}
-  targetThreshold: 5
+  spawnCount: 5
+  spawnDelay: 1
   gameTime: 120
 --- !u!1 &560905538
 GameObject:
