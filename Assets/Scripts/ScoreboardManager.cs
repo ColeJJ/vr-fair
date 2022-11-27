@@ -7,6 +7,7 @@ public class ScoreboardManager : MonoBehaviour
 {
 
     public int score = 0;
+    public TMP_Text timeText;
     public TMP_Text scoreText;
 
     // Start is called before the first frame update
@@ -22,8 +23,13 @@ public class ScoreboardManager : MonoBehaviour
     }
 
     public void UpdateScore(int addScore) {
-        print("Update score!");
         score += addScore;
-        scoreText.text = score.ToString();
+        scoreText.text = $"Score: {score}";
+    }
+
+    public void UpdateTime(float time) {
+        float minutes = Mathf.FloorToInt(time / 60);
+        float seconds = Mathf.FloorToInt(time % 60);
+        timeText.text = string.Format("Time: {0:00}:{1:00}", minutes, seconds);
     }
 }

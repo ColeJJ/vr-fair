@@ -3,37 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TargetSpawnManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-
     public TargetStateHandler[] targetStateHandlers;
+    public ScoreboardManager scoreboardManager;
+
+    public int targetThreshold;
+    public float gameTime;
+    private bool timerIsRunning = true;
+    
     void Start()
     {
-        foreach(TargetStateHandler stateHandler in targetStateHandlers) {
-            stateHandler.UpdateTargetState(TargetState.Down);
-        }
+        UpdateTargets(targetStateHandlers, TargetState.Down);
         InvokeRepeating("SpawnRandomTargetsIfNeeded", 2f, 2f);
     }
 
     void Update()
     {
-        
+        if (timerIsRunning) {
+            if (gameTime > 0) {
+                gameTime -= Time.deltaTime;
+            } else {
+                gameTime = 0;
+                CancelInvoke();
+                UpdateTargets(targetStateHandlers, TargetState.Down);
+                timerIsRunning = false;
+            }
+            scoreboardManager.UpdateTime(gameTime);
+        }
     }
 
     private void SpawnRandomTargetsIfNeeded() {
-        print("Spawn invoked");
         if(targetStateHandlers.Where(n => n.state == TargetState.Up).Any()) { return; }
-
-        print("Spawn executed");
-        StartCoroutine(SpawnRandomTargets(5, 1f));
+        StartCoroutine(SpawnRandomTargets(targetThreshold, 1f));
     }
 
     private IEnumerator SpawnRandomTargets(int threshold, float delay) {
         yield return new WaitForSeconds(delay);
         TargetStateHandler[] targetsToSpawn = SelectRandomListItems(targetStateHandlers, threshold);
-        foreach(TargetStateHandler stateHandler in targetsToSpawn) {
-            stateHandler.UpdateTargetState(TargetState.Up);
-        }
+        UpdateTargets(targetsToSpawn, TargetState.Up);
     }
 
     private TargetStateHandler[] SelectRandomListItems(TargetStateHandler[] targetStateHandlers, int threshold) {
@@ -45,5 +53,11 @@ public class TargetSpawnManager : MonoBehaviour
         }
 
         return mutableList.ToArray();
+    }
+
+    private void UpdateTargets(TargetStateHandler[] stateHandlers, TargetState state) {
+        foreach(TargetStateHandler stateHandler in stateHandlers) {
+            stateHandler.UpdateTargetState(state);
+        }
     }
 }

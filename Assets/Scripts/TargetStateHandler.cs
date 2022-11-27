@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum TargetState {
     Up,
+    Hit,
     Down
 }
 
@@ -32,13 +33,16 @@ public class TargetStateHandler : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        scoreboardManager.UpdateScore(1);
+        if(state == TargetState.Up) {
+            state = TargetState.Hit;
+            scoreboardManager.UpdateScore(1);
+        }
     }
 
     public void UpdateTargetState(TargetState state) { 
         if(state == TargetState.Up) {
             targetJoint.useSpring = true;
-        } else {
+        } else if (state == TargetState.Down) {
             targetJoint.useMotor = true;
         }
     }
