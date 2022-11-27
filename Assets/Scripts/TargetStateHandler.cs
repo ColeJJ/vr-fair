@@ -9,36 +9,36 @@ public enum TargetState {
 
 public class TargetStateHandler : MonoBehaviour
 {
-    public TargetState state = TargetState.Down;
+    public TargetState state = TargetState.Up;
+
+    HingeJoint targetJoint;
 
     void Start()
     {
-        UpdateTargetTransformation(this.state);
+        targetJoint = GetComponent<HingeJoint>();
     }
 
     void Update()
     {
-        
-    }
-
-    public void OnBulletCollision() {
-        UpdateTargetState(TargetState.Down);
-    }
-
-    public void UpdateTargetState(TargetState state) {
-        if(state == this.state) { return; }
-
-        this.state = state;
-        UpdateTargetTransformation(state);
-    }
-
-    private void UpdateTargetTransformation(TargetState state) {
-        if(state == TargetState.Up) {
-            transform.Rotate(-90, 0, 0);
-        } else {
-            transform.Rotate(90, 0, 0);
+        if(transform.localRotation.eulerAngles.x < 0.1) {
+            targetJoint.useSpring = false;
+            state = TargetState.Up;
+        } else if(transform.localRotation.eulerAngles.x > 89.9) {
+            targetJoint.useMotor = false;
+            state = TargetState.Down;
         }
     }
 
+    public void OnBulletCollision() {
+        print("Hit!");
+    }
+
+    public void UpdateTargetState(TargetState state) { 
+        if(state == TargetState.Up) {
+            targetJoint.useSpring = true;
+        } else {
+            targetJoint.useMotor = true;
+        }
+    }
 
 }
