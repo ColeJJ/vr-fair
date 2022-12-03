@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public enum TargetState {
@@ -16,33 +17,36 @@ public enum TargetType {
 public class TargetManager : MonoBehaviour
 {
     public ScoreboardManager scoreboardManager;
+    public TMP_Text hitpointText;
     public Material standardMaterial;
     public Material heavyMaterial;
     public TargetState state = TargetState.Hit;
-    public int totalHitPoints = 1;
+    public int totalHitpoints = 1;
     public int scorePoints = 1;
 
     private HingeJoint targetJoint;
     private Rigidbody rb;
-    private int hitPoints;
+    private int hitpoints;
 
     void Start()
     {
         targetJoint = GetComponent<HingeJoint>();
         rb = GetComponent<Rigidbody>();
-        hitPoints = totalHitPoints;
+        hitpoints = totalHitpoints;
     }
 
     void Update()
     {
         if(transform.localRotation.eulerAngles.x < 0.1) {
             targetJoint.useSpring = false;
-            rb.isKinematic = hitPoints > 1;
+            rb.isKinematic = hitpoints > 1;
             state = TargetState.Up;
         } else if(transform.localRotation.eulerAngles.x > 89.9) {
             targetJoint.useMotor = false;
             state = TargetState.Down;
         }
+
+        hitpointText.text = hitpoints > 0 ? hitpoints.ToString() : "";
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -52,8 +56,9 @@ public class TargetManager : MonoBehaviour
         BulletManager bulletManager = collision.gameObject.GetComponent<BulletManager>();
         if(bulletManager.collisionCount > 1) { return; }
 
-        hitPoints -= 1;
-        if(hitPoints == 0) {
+        hitpoints -= 1;
+
+        if(hitpoints == 0) {
             state = TargetState.Hit;
             scoreboardManager.UpdateScore(scorePoints);
         }
@@ -62,11 +67,11 @@ public class TargetManager : MonoBehaviour
     public void UpdateTargetState(TargetState state) { 
         switch(state) {
             case TargetState.Up:
-                hitPoints = totalHitPoints;
+                hitpoints = totalHitpoints;
                 targetJoint.useSpring = true;
                 break;
             case TargetState.Down:
-                hitPoints = 0;
+                hitpoints = 0;
                 targetJoint.useMotor = true;
                 break;
             case TargetState.Hit:
@@ -78,12 +83,12 @@ public class TargetManager : MonoBehaviour
     public void SetTargetType(TargetType type) {
         switch(type) {
             case TargetType.Normal:
-                totalHitPoints = 1;
+                totalHitpoints = 1;
                 scorePoints = 1;
                 SetMaterial(standardMaterial);
                 break;
             case TargetType.Heavy:
-                totalHitPoints = 5;
+                totalHitpoints = 5;
                 scorePoints = 5;
                 SetMaterial(heavyMaterial);
                 break;
