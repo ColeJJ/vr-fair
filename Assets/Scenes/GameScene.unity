@@ -548,6 +548,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 1
   scoreboardManager: {fileID: 385966577}
+  hitThreshold: 1
+  points: 1
 --- !u!4 &314341918
 Transform:
   m_ObjectHideFlags: 0
@@ -1067,6 +1069,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 1
   scoreboardManager: {fileID: 385966577}
+  hitThreshold: 1
+  points: 1
 --- !u!4 &610675474
 Transform:
   m_ObjectHideFlags: 0
@@ -1169,6 +1173,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 1
   scoreboardManager: {fileID: 385966577}
+  hitThreshold: 1
+  points: 1
 --- !u!4 &619458026
 Transform:
   m_ObjectHideFlags: 0
@@ -1370,6 +1376,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 1
   scoreboardManager: {fileID: 385966577}
+  hitThreshold: 1
+  points: 1
 --- !u!4 &710027082
 Transform:
   m_ObjectHideFlags: 0
@@ -2236,6 +2244,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 1
   scoreboardManager: {fileID: 385966577}
+  hitThreshold: 1
+  points: 1
 --- !u!4 &1268071547
 Transform:
   m_ObjectHideFlags: 0
@@ -2469,6 +2479,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 1
   scoreboardManager: {fileID: 385966577}
+  hitThreshold: 5
+  points: 5
 --- !u!54 &1442976856
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2963,6 +2975,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 1
   scoreboardManager: {fileID: 385966577}
+  hitThreshold: 1
+  points: 1
 --- !u!4 &1779973826
 Transform:
   m_ObjectHideFlags: 0
@@ -3359,6 +3373,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 1
   scoreboardManager: {fileID: 385966577}
+  hitThreshold: 1
+  points: 1
 --- !u!4 &1978256914
 Transform:
   m_ObjectHideFlags: 0
