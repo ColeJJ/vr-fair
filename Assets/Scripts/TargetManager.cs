@@ -66,6 +66,7 @@ public class TargetManager : MonoBehaviour
                 targetJoint.useSpring = true;
                 break;
             case TargetState.Down:
+                hitPoints = 0;
                 targetJoint.useMotor = true;
                 break;
             case TargetState.Hit:
