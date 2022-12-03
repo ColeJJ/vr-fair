@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public TargetStateHandler[] targetStateHandlers;
+    public TargetManager[] targetManagers;
     public ScoreboardManager scoreboardManager;
 
     public int spawnCount;
@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        UpdateTargets(targetStateHandlers, TargetState.Down);
+        UpdateTargets(targetManagers, TargetState.Down);
     }
 
     void Update()
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
                 SpawnRandomTargetsIfNeeded();
             } else {
                 gameTime = 0;
-                UpdateTargets(targetStateHandlers, TargetState.Down);
+                UpdateTargets(targetManagers, TargetState.Down);
                 timerIsRunning = false;
             }
             scoreboardManager.UpdateTime(gameTime);
@@ -35,21 +35,21 @@ public class GameManager : MonoBehaviour
     }
 
     private void SpawnRandomTargetsIfNeeded() {
-        if(targetStateHandlers.Where(n => n.state == TargetState.Up).Any() || targetsSpawning) { return; }
+        if(targetManagers.Where(n => n.state == TargetState.Up).Any() || targetsSpawning) { return; }
         StartCoroutine(SpawnRandomTargets(spawnCount, spawnDelay));
     }
 
     private IEnumerator SpawnRandomTargets(int count, float delay) {
         targetsSpawning = true;
         yield return new WaitForSeconds(delay);
-        TargetStateHandler[] targetsToSpawn = SelectRandomListItems(targetStateHandlers, count);
+        TargetManager[] targetsToSpawn = SelectRandomListItems(targetManagers, count);
         UpdateTargets(targetsToSpawn, TargetState.Up);
         yield return new WaitForSeconds(1f);
         targetsSpawning = false;
     }
 
-    private TargetStateHandler[] SelectRandomListItems(TargetStateHandler[] targetStateHandlers, int count) {
-        var mutableList = new List<TargetStateHandler>(targetStateHandlers);
+    private TargetManager[] SelectRandomListItems(TargetManager[] targetManagers, int count) {
+        var mutableList = new List<TargetManager>(targetManagers);
         int removeCount = mutableList.Count - count;
         for(int i = 0; i < removeCount; i++) {
             int index = Random.Range(0, mutableList.Count);
@@ -59,9 +59,9 @@ public class GameManager : MonoBehaviour
         return mutableList.ToArray();
     }
 
-    private void UpdateTargets(TargetStateHandler[] stateHandlers, TargetState state) {
-        foreach(TargetStateHandler stateHandler in stateHandlers) {
-            stateHandler.UpdateTargetState(state);
+    private void UpdateTargets(TargetManager[] targetManagers, TargetState state) {
+        foreach(TargetManager targetManager in targetManagers) {
+            targetManager.UpdateTargetState(state);
         }
     }
 }

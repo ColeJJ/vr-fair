@@ -8,7 +8,7 @@ public enum TargetState {
     Down
 }
 
-public class TargetStateHandler : MonoBehaviour
+public class TargetManager : MonoBehaviour
 {
     public TargetState state = TargetState.Up;
     public ScoreboardManager scoreboardManager;

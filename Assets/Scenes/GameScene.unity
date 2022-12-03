@@ -923,7 +923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e704d10c3a484591ac16bb0aa68b1db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetStateHandlers:
+  targetManagers:
   - {fileID: 1442976855}
   - {fileID: 610675473}
   - {fileID: 1268071546}
