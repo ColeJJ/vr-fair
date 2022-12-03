@@ -16,17 +16,22 @@ public class GameManager : MonoBehaviour
     public int spawnCount;
     public float spawnDelay;
     public int heavyTargetCount;
+    public int heavyTargetSpawnCount;
     public float gameTime;
 
+    private TargetManager[] targetManagersNormal;
+    private TargetManager[] targetManagersHeavy;
     private bool timerIsRunning = true;
     private bool targetsSpawning = false;
 
     void Start()
     {
-        TargetManager[] targetManagersHeavy = SplitOffRandomTargets(targetManagers, heavyTargetCount);
+        var (targetManagersHeavy, targetManagersNormal) = SplitOffRandomTargets(targetManagers, heavyTargetCount);
         foreach(TargetManager targetManager in targetManagersHeavy) { 
             targetManager.SetTargetType(TargetType.Heavy);
         }
+        this.targetManagersNormal = targetManagersNormal;
+        this.targetManagersHeavy = targetManagersHeavy;
 
         UpdateTargetStates(targetManagers, TargetState.Down);
     }
@@ -54,22 +59,26 @@ public class GameManager : MonoBehaviour
     private IEnumerator SpawnRandomTargets(int count, float delay) {
         targetsSpawning = true;
         yield return new WaitForSeconds(delay);
-        var targetsToSpawn = SplitOffRandomTargets(targetManagers, count);
+
+        var (heavyTargetsToSpawn, _) = SplitOffRandomTargets(targetManagersHeavy, heavyTargetSpawnCount);
+        var (normalTargetsToSpawn, _) = SplitOffRandomTargets(targetManagersNormal, spawnCount - heavyTargetSpawnCount);
+        var targetsToSpawn = heavyTargetsToSpawn.Concat(normalTargetsToSpawn).ToArray();
         UpdateTargetStates(targetsToSpawn, TargetState.Up);
+
         yield return new WaitForSeconds(1f);
         targetsSpawning = false;
     }
 
-    private TargetManager[] SplitOffRandomTargets(TargetManager[] targetManagers, int count) {
-        var mutableList = new List<TargetManager>(targetManagers);
+    private (TargetManager[], TargetManager[]) SplitOffRandomTargets(TargetManager[] targetManagers, int count) {
+        var remainderList = new List<TargetManager>(targetManagers);
         var splittedList = new List<TargetManager>();
         for(int i = 0; i < count; i++) {
-            int index = Random.Range(0, mutableList.Count);
-            splittedList.Add(mutableList[index]);
-            mutableList.RemoveAt(index);
+            int index = Random.Range(0, remainderList.Count);
+            splittedList.Add(remainderList[index]);
+            remainderList.RemoveAt(index);
         }
 
-        return splittedList.ToArray();
+        return (splittedList.ToArray(), remainderList.ToArray());
     }
 
     private void UpdateTargetStates(TargetManager[] targetManagers, TargetState state) {
