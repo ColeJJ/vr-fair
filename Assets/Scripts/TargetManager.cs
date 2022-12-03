@@ -18,7 +18,7 @@ public class TargetManager : MonoBehaviour
     public ScoreboardManager scoreboardManager;
     public Material standardMaterial;
     public Material heavyMaterial;
-    public TargetState state = TargetState.Up;
+    public TargetState state = TargetState.Hit;
     public int totalHitPoints = 1;
     public int scorePoints = 1;
 

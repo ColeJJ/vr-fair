@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
         }
         this.targetManagersNormal = targetManagersNormal;
         this.targetManagersHeavy = targetManagersHeavy;
+        this.scoreboardManager.ResetScore();
 
         UpdateTargetStates(targetManagers, TargetState.Down);
     }
