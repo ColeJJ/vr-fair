@@ -18,8 +18,6 @@ public class TargetManager : MonoBehaviour
 {
     public ScoreboardManager scoreboardManager;
     public TMP_Text hitpointText;
-    public Material standardMaterial;
-    public Material heavyMaterial;
     public TargetState state = TargetState.Hit;
     public int totalHitpoints = 1;
     public int scorePoints = 1;
@@ -85,11 +83,13 @@ public class TargetManager : MonoBehaviour
             case TargetType.Normal:
                 totalHitpoints = 1;
                 scorePoints = 1;
+                Material standardMaterial = Resources.Load("Material/Target Standard Material", typeof(Material)) as Material;
                 SetMaterial(standardMaterial);
                 break;
             case TargetType.Heavy:
                 totalHitpoints = 5;
                 scorePoints = 5;
+                Material heavyMaterial = Resources.Load("Material/Target Heavy Material", typeof(Material)) as Material;
                 SetMaterial(heavyMaterial);
                 break;
         }
