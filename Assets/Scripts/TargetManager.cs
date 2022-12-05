@@ -14,22 +14,33 @@ public enum TargetType {
     Heavy
 }
 
+public enum TargetDisplayColor {
+    None,
+    Red,
+    Green
+}
+
 public class TargetManager : MonoBehaviour
 {
     public ScoreboardManager scoreboardManager;
-    public TMP_Text hitpointText;
-    public TargetState state = TargetState.Hit;
+    public GameObject canvas;
+    public GameObject colorDisplay;
+    public TargetState state = TargetState.Up;
     public int totalHitpoints = 1;
     public int scorePoints = 1;
 
     private HingeJoint targetJoint;
     private Rigidbody rb;
+    private TMP_Text hitpointText;
+    private TargetType type;
     private int hitpoints;
 
     void Start()
     {
         targetJoint = GetComponent<HingeJoint>();
         rb = GetComponent<Rigidbody>();
+        hitpointText = canvas.transform.GetChild(0).GetComponent<TMP_Text>();
+
         hitpoints = totalHitpoints;
     }
 
@@ -44,7 +55,9 @@ public class TargetManager : MonoBehaviour
             state = TargetState.Down;
         }
 
-        hitpointText.text = hitpoints > 0 ? hitpoints.ToString() : "";
+        if(canvas.activeSelf) {
+            hitpointText.text = hitpoints > 0 ? hitpoints.ToString() : "";
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -78,17 +91,37 @@ public class TargetManager : MonoBehaviour
         }
     }
 
+    public void UpdateTargetDisplayColor(TargetDisplayColor color) {
+        switch(color) {
+            case TargetDisplayColor.None:
+                colorDisplay.SetActive(false);
+                break;
+            case TargetDisplayColor.Green:
+                Material greenMaterial = Resources.Load("Material/Target Green Material", typeof(Material)) as Material;
+                colorDisplay.GetComponent<Renderer>().material = greenMaterial;
+                colorDisplay.SetActive(true);
+                break;
+            case TargetDisplayColor.Red:
+                Material redMaterial = Resources.Load("Material/Target Red Material", typeof(Material)) as Material;
+                colorDisplay.GetComponent<Renderer>().material = redMaterial;
+                colorDisplay.SetActive(true);
+                break;
+        }
+    }
+
     public void SetTargetType(TargetType type) {
         switch(type) {
             case TargetType.Normal:
                 totalHitpoints = 1;
                 scorePoints = 1;
+                canvas.SetActive(false);
                 Material standardMaterial = Resources.Load("Material/Target Standard Material", typeof(Material)) as Material;
                 SetMaterial(standardMaterial);
                 break;
             case TargetType.Heavy:
                 totalHitpoints = 5;
                 scorePoints = 5;
+                canvas.SetActive(true);
                 Material heavyMaterial = Resources.Load("Material/Target Heavy Material", typeof(Material)) as Material;
                 SetMaterial(heavyMaterial);
                 break;
