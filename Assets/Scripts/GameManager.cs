@@ -3,20 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+struct SplitResult<T> {
+    T[] splittedElements;
+    T[] remainderElements;
+}
+
 public class GameManager : MonoBehaviour
 {
-    public TargetStateHandler[] targetStateHandlers;
+    public TargetManager[] targetManagers;
     public ScoreboardManager scoreboardManager;
 
     public int spawnCount;
     public float spawnDelay;
+    public int heavyTargetCount;
+    public int heavyTargetSpawnCount;
     public float gameTime;
+
+    private TargetManager[] targetManagersNormal;
+    private TargetManager[] targetManagersHeavy;
     private bool timerIsRunning = true;
     private bool targetsSpawning = false;
 
     void Start()
     {
-        UpdateTargets(targetStateHandlers, TargetState.Down);
+        var (targetManagersHeavy, targetManagersNormal) = SplitOffRandomTargets(targetManagers, heavyTargetCount);
+        foreach(TargetManager targetManager in targetManagersHeavy) { 
+            targetManager.SetTargetType(TargetType.Heavy);
+        }
+        this.targetManagersNormal = targetManagersNormal;
+        this.targetManagersHeavy = targetManagersHeavy;
+        this.scoreboardManager.ResetScore();
+
+        UpdateTargetStates(targetManagers, TargetState.Down);
     }
 
     void Update()
@@ -27,7 +45,7 @@ public class GameManager : MonoBehaviour
                 SpawnRandomTargetsIfNeeded();
             } else {
                 gameTime = 0;
-                UpdateTargets(targetStateHandlers, TargetState.Down);
+                UpdateTargetStates(targetManagers, TargetState.Down);
                 timerIsRunning = false;
             }
             scoreboardManager.UpdateTime(gameTime);
@@ -35,33 +53,38 @@ public class GameManager : MonoBehaviour
     }
 
     private void SpawnRandomTargetsIfNeeded() {
-        if(targetStateHandlers.Where(n => n.state == TargetState.Up).Any() || targetsSpawning) { return; }
+        if(targetManagers.Where(n => n.state == TargetState.Up).Any() || targetsSpawning) { return; }
         StartCoroutine(SpawnRandomTargets(spawnCount, spawnDelay));
     }
 
     private IEnumerator SpawnRandomTargets(int count, float delay) {
         targetsSpawning = true;
         yield return new WaitForSeconds(delay);
-        TargetStateHandler[] targetsToSpawn = SelectRandomListItems(targetStateHandlers, count);
-        UpdateTargets(targetsToSpawn, TargetState.Up);
+
+        var (heavyTargetsToSpawn, _) = SplitOffRandomTargets(targetManagersHeavy, heavyTargetSpawnCount);
+        var (normalTargetsToSpawn, _) = SplitOffRandomTargets(targetManagersNormal, spawnCount - heavyTargetSpawnCount);
+        var targetsToSpawn = heavyTargetsToSpawn.Concat(normalTargetsToSpawn).ToArray();
+        UpdateTargetStates(targetsToSpawn, TargetState.Up);
+
         yield return new WaitForSeconds(1f);
         targetsSpawning = false;
     }
 
-    private TargetStateHandler[] SelectRandomListItems(TargetStateHandler[] targetStateHandlers, int count) {
-        var mutableList = new List<TargetStateHandler>(targetStateHandlers);
-        int removeCount = mutableList.Count - count;
-        for(int i = 0; i < removeCount; i++) {
-            int index = Random.Range(0, mutableList.Count);
-            mutableList.RemoveAt(index);
+    private (TargetManager[], TargetManager[]) SplitOffRandomTargets(TargetManager[] targetManagers, int count) {
+        var remainderList = new List<TargetManager>(targetManagers);
+        var splittedList = new List<TargetManager>();
+        for(int i = 0; i < count; i++) {
+            int index = Random.Range(0, remainderList.Count);
+            splittedList.Add(remainderList[index]);
+            remainderList.RemoveAt(index);
         }
 
-        return mutableList.ToArray();
+        return (splittedList.ToArray(), remainderList.ToArray());
     }
 
-    private void UpdateTargets(TargetStateHandler[] stateHandlers, TargetState state) {
-        foreach(TargetStateHandler stateHandler in stateHandlers) {
-            stateHandler.UpdateTargetState(state);
+    private void UpdateTargetStates(TargetManager[] targetManagers, TargetState state) {
+        foreach(TargetManager targetManager in targetManagers) {
+            targetManager.UpdateTargetState(state);
         }
     }
 }

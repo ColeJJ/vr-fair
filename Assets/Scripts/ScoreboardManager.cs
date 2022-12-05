@@ -22,6 +22,11 @@ public class ScoreboardManager : MonoBehaviour
         
     }
 
+    public void ResetScore() {
+        score = 0;
+        scoreText.text = $"Score: {score}";
+    }
+
     public void UpdateScore(int addScore) {
         score += addScore;
         scoreText.text = $"Score: {score}";
