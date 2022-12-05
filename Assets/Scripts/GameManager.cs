@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-struct SplitResult<T> {
-    T[] splittedElements;
-    T[] remainderElements;
+public enum ColorType {
+    None,
+    Red,
+    Green
 }
 
 public class GameManager : MonoBehaviour
 {
     public TargetManager[] targetManagers;
     public ScoreboardManager scoreboardManager;
-
     public float spawnDelay;
     public int targetSpawnCount;
     public int colorDisplayCount;
@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
 
         var (heavyTargetsToSpawn, _) = SplitOffRandomTargets(targetManagersHeavy, heavyTargetSpawnCount);
         var (normalTargetsToSpawn, _) = SplitOffRandomTargets(targetManagersNormal, targetSpawnCount);
-        UpdateTargetColorDisplays(normalTargetsToSpawn, colorDisplayCount);
+        UpdateTargetColorTypes(normalTargetsToSpawn, colorDisplayCount);
 
         var targetsToSpawn = heavyTargetsToSpawn.Concat(normalTargetsToSpawn).ToArray();
         UpdateTargetStates(targetsToSpawn, TargetState.Up);
@@ -85,16 +85,16 @@ public class GameManager : MonoBehaviour
         return (splittedList.ToArray(), remainderList.ToArray());
     }
 
-    private void UpdateTargetColorDisplays(TargetManager[] targetManagers, int displayCount) {
+    private void UpdateTargetColorTypes(TargetManager[] targetManagers, int displayCount) {
         var (coloredTargets, nonColoredTargets) = SplitOffRandomTargets(targetManagers, displayCount);
 
         foreach(TargetManager targetManager in coloredTargets) {
-            TargetDisplayColor displayColor = Random.Range(0, 2) == 1 ? TargetDisplayColor.Green : TargetDisplayColor.Red;
-            targetManager.UpdateTargetDisplayColor(displayColor);
+            ColorType colorType = Random.Range(0, 2) == 1 ? ColorType.Green : ColorType.Red;
+            targetManager.UpdateTargetColorType(colorType);
         }
 
         foreach(TargetManager targetManager in nonColoredTargets) {
-            targetManager.UpdateTargetDisplayColor(TargetDisplayColor.None);
+            targetManager.UpdateTargetColorType(ColorType.None);
         } 
     }
 

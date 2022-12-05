@@ -14,12 +14,6 @@ public enum TargetType {
     Heavy
 }
 
-public enum TargetDisplayColor {
-    None,
-    Red,
-    Green
-}
-
 public class TargetManager : MonoBehaviour
 {
     public ScoreboardManager scoreboardManager;
@@ -32,7 +26,7 @@ public class TargetManager : MonoBehaviour
     private HingeJoint targetJoint;
     private Rigidbody rb;
     private TMP_Text hitpointText;
-    private TargetType type;
+    private ColorType colorType = ColorType.None;
     private int hitpoints;
 
     void Start()
@@ -60,12 +54,12 @@ public class TargetManager : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag != "Bullet" || state != TargetState.Up) { return; }
 
         BulletManager bulletManager = collision.gameObject.GetComponent<BulletManager>();
-        if(bulletManager.collisionCount > 1) { return; }
+        if(bulletManager.collisionCount > 1 || !MatchColorType(bulletManager.colorType)) { return; }
 
         hitpoints -= 1;
 
@@ -91,18 +85,19 @@ public class TargetManager : MonoBehaviour
         }
     }
 
-    public void UpdateTargetDisplayColor(TargetDisplayColor color) {
-        switch(color) {
-            case TargetDisplayColor.None:
+    public void UpdateTargetColorType(ColorType colorType) {
+        this.colorType = colorType;
+        switch(colorType) {
+            case ColorType.None:
                 colorDisplay.SetActive(false);
                 break;
-            case TargetDisplayColor.Green:
-                Material greenMaterial = Resources.Load("Material/Target Green Material", typeof(Material)) as Material;
+            case ColorType.Green:
+                Material greenMaterial = Resources.Load("Material/Color Type Green", typeof(Material)) as Material;
                 colorDisplay.GetComponent<Renderer>().material = greenMaterial;
                 colorDisplay.SetActive(true);
                 break;
-            case TargetDisplayColor.Red:
-                Material redMaterial = Resources.Load("Material/Target Red Material", typeof(Material)) as Material;
+            case ColorType.Red:
+                Material redMaterial = Resources.Load("Material/Color Type Red", typeof(Material)) as Material;
                 colorDisplay.GetComponent<Renderer>().material = redMaterial;
                 colorDisplay.SetActive(true);
                 break;
@@ -132,6 +127,11 @@ public class TargetManager : MonoBehaviour
         foreach(Transform child in transform) {
             child.gameObject.GetComponent<Renderer>().material = material;
         }
+    }
+
+    private bool MatchColorType(ColorType colorType) {
+        if(this.colorType == ColorType.None) { return true; }
+        return colorType == this.colorType;
     }
 
 }
