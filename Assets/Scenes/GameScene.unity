@@ -3213,11 +3213,12 @@ MonoBehaviour:
   - {fileID: 1138971076}
   - {fileID: 1389483978}
   scoreboardManager: {fileID: 385966577}
-  spawnCount: 8
   spawnDelay: 1
+  targetSpawnCount: 7
+  colorDisplayCount: 3
   heavyTargetCount: 3
   heavyTargetSpawnCount: 1
-  gameTime: 30
+  gameTime: 60
 --- !u!1 &560905538
 GameObject:
   m_ObjectHideFlags: 0

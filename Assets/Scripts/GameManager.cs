@@ -13,8 +13,9 @@ public class GameManager : MonoBehaviour
     public TargetManager[] targetManagers;
     public ScoreboardManager scoreboardManager;
 
-    public int spawnCount;
     public float spawnDelay;
+    public int targetSpawnCount;
+    public int colorDisplayCount;
     public int heavyTargetCount;
     public int heavyTargetSpawnCount;
     public float gameTime;
@@ -54,15 +55,17 @@ public class GameManager : MonoBehaviour
 
     private void SpawnRandomTargetsIfNeeded() {
         if(targetManagers.Where(n => n.state == TargetState.Up).Any() || targetsSpawning) { return; }
-        StartCoroutine(SpawnRandomTargets(spawnCount, spawnDelay));
+        StartCoroutine(SpawnRandomTargets());
     }
 
-    private IEnumerator SpawnRandomTargets(int count, float delay) {
+    private IEnumerator SpawnRandomTargets() {
         targetsSpawning = true;
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(spawnDelay);
 
         var (heavyTargetsToSpawn, _) = SplitOffRandomTargets(targetManagersHeavy, heavyTargetSpawnCount);
-        var (normalTargetsToSpawn, _) = SplitOffRandomTargets(targetManagersNormal, spawnCount - heavyTargetSpawnCount);
+        var (normalTargetsToSpawn, _) = SplitOffRandomTargets(targetManagersNormal, targetSpawnCount);
+        UpdateTargetColorDisplays(normalTargetsToSpawn, colorDisplayCount);
+
         var targetsToSpawn = heavyTargetsToSpawn.Concat(normalTargetsToSpawn).ToArray();
         UpdateTargetStates(targetsToSpawn, TargetState.Up);
 
@@ -80,6 +83,19 @@ public class GameManager : MonoBehaviour
         }
 
         return (splittedList.ToArray(), remainderList.ToArray());
+    }
+
+    private void UpdateTargetColorDisplays(TargetManager[] targetManagers, int displayCount) {
+        var (coloredTargets, nonColoredTargets) = SplitOffRandomTargets(targetManagers, displayCount);
+
+        foreach(TargetManager targetManager in coloredTargets) {
+            TargetDisplayColor displayColor = Random.Range(0, 2) == 1 ? TargetDisplayColor.Green : TargetDisplayColor.Red;
+            targetManager.UpdateTargetDisplayColor(displayColor);
+        }
+
+        foreach(TargetManager targetManager in nonColoredTargets) {
+            targetManager.UpdateTargetDisplayColor(TargetDisplayColor.None);
+        } 
     }
 
     private void UpdateTargetStates(TargetManager[] targetManagers, TargetState state) {
