@@ -21,13 +21,14 @@ public class TargetManager : MonoBehaviour
     public GameObject colorDisplay;
     public TargetState state = TargetState.Up;
     public int totalHitpoints = 1;
-    public int scorePoints = 1;
+    public int scorePoints;
 
     private HingeJoint targetJoint;
     private Rigidbody rb;
     private TMP_Text hitpointText;
     private ColorType colorType = ColorType.None;
     private int hitpoints;
+    private int scorePointsMultiplier = 1;
 
     void Start()
     {
@@ -65,7 +66,7 @@ public class TargetManager : MonoBehaviour
 
         if(hitpoints == 0) {
             state = TargetState.Hit;
-            scoreboardManager.UpdateScore(scorePoints);
+            scoreboardManager.UpdateScore(scorePoints * scorePointsMultiplier);
         }
     }
 
@@ -108,14 +109,14 @@ public class TargetManager : MonoBehaviour
         switch(type) {
             case TargetType.Normal:
                 totalHitpoints = 1;
-                scorePoints = 1;
+                scorePointsMultiplier = 1;
                 canvas.SetActive(false);
                 Material standardMaterial = Resources.Load("Material/Target Standard Material", typeof(Material)) as Material;
                 SetMaterial(standardMaterial);
                 break;
             case TargetType.Heavy:
                 totalHitpoints = 5;
-                scorePoints = 5;
+                scorePointsMultiplier = 5;
                 canvas.SetActive(true);
                 Material heavyMaterial = Resources.Load("Material/Target Heavy Material", typeof(Material)) as Material;
                 SetMaterial(heavyMaterial);
