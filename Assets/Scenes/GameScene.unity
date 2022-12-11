@@ -4043,7 +4043,7 @@ MonoBehaviour:
   - {fileID: 506435941}
   scoreboardManager: {fileID: 385966577}
   spawnDelay: 1
-  gameTime: 60
+  gameTime: 10
   timerIsRunning: 0
 --- !u!1 &560905538
 GameObject:

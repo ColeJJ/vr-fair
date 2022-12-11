@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     public bool timerIsRunning = false;
     private bool targetsSpawning = false;
+    private float internalTime;
 
     void Start()
     {
@@ -36,29 +37,28 @@ public class GameManager : MonoBehaviour
                 heavyTargetSpawnCount = 0
             }
         };
-
-        for(int i = 0; i < targetRowManagers.Length; i++) {
-            targetRowManagers[i].Setup(targetRowConfigurations[i]);
-        }
     }
 
     void Update()
     {
         if (timerIsRunning) {
-            if (gameTime > 0) {
-                gameTime -= Time.deltaTime;
+            if (internalTime > 0) {
+                internalTime -= Time.deltaTime;
                 SpawnRandomTargetsIfNeeded();
             } else {
-                gameTime = 0;
-                UpdateTargetStates(TargetState.Down);
+                internalTime = 0;
                 timerIsRunning = false;
+                UpdateTargetStates(TargetState.Down);
             }
-            scoreboardManager.UpdateTime(gameTime);
+            scoreboardManager.UpdateTime(internalTime);
         }
     }
 
-    public void StartGame() {
-        this.scoreboardManager.ResetScore();
+    public void StartGame() { 
+        ResetTargets();       
+        SetTargetConfigurations(targetRowConfigurations);
+        scoreboardManager.ResetScore();
+        internalTime = gameTime;
         timerIsRunning = true;
     }
 
@@ -82,6 +82,18 @@ public class GameManager : MonoBehaviour
     private void UpdateTargetStates(TargetState state) {
         foreach(TargetRowManager targetRowManager in targetRowManagers) {
             targetRowManager.UpdateTargetStates(state);
+        }
+    }
+
+    private void SetTargetConfigurations(TargetRowConfiguration[] configurations) {
+        for(int i = 0; i < targetRowManagers.Length; i++) {
+            targetRowManagers[i].Setup(configurations[i]);
+        }
+    }
+
+    private void ResetTargets() {
+        foreach(TargetRowManager targetRowManager in targetRowManagers) {
+            targetRowManager.Reset();
         }
     }
 }

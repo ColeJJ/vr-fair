@@ -124,6 +124,11 @@ public class TargetManager : MonoBehaviour
         }
     }
 
+    public void Reset() {
+        SetTargetType(TargetType.Normal);
+        UpdateTargetColorType(ColorType.None);
+    }
+
     private void SetMaterial(Material material) {
         foreach(Transform child in transform) {
             child.gameObject.GetComponent<Renderer>().material = material;

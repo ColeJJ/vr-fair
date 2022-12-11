@@ -28,6 +28,16 @@ public class TargetRowManager : MonoBehaviour
         UpdateTargetStates(targetManagers, state);
     }
 
+    public void Reset() {
+        foreach(TargetManager targetManager in targetManagers) {
+            targetManager.Reset();
+        }
+
+        configuration = null;
+        targetManagersNormal = null;
+        targetManagersHeavy = null;
+    }
+
     public void SpawnRandomTargets() {
         var (heavyTargetsToSpawn, _) = SplitOffRandomTargets(targetManagersHeavy, configuration.heavyTargetSpawnCount);
         var (normalTargetsToSpawn, _) = SplitOffRandomTargets(targetManagersNormal, configuration.targetSpawnCount);
