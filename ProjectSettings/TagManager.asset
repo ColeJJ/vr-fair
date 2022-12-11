@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bullet
+  - Left Hand
+  - Right Hand
   layers:
   - Default
   - TransparentFX
