@@ -17,27 +17,26 @@ public class GameManager : MonoBehaviour
     public float spawnDelay;
     public float gameTime;
 
-    private bool timerIsRunning = true;
+    public bool timerIsRunning = false;
     private bool targetsSpawning = false;
 
     void Start()
     {
         targetRowConfigurations = new TargetRowConfiguration[] {
             new TargetRowConfiguration {
-                targetSpawnCount = 4,
+                targetSpawnCount = 3,
                 colorDisplayCount = 1,
                 heavyTargetCount = 1,
                 heavyTargetSpawnCount = 1
             },
             new TargetRowConfiguration {
-                targetSpawnCount = 4,
+                targetSpawnCount = 2,
                 colorDisplayCount = 1,
-                heavyTargetCount = 1,
-                heavyTargetSpawnCount = 1
+                heavyTargetCount = 0,
+                heavyTargetSpawnCount = 0
             }
         };
 
-        this.scoreboardManager.ResetScore();
         for(int i = 0; i < targetRowManagers.Length; i++) {
             targetRowManagers[i].Setup(targetRowConfigurations[i]);
         }
@@ -56,6 +55,11 @@ public class GameManager : MonoBehaviour
             }
             scoreboardManager.UpdateTime(gameTime);
         }
+    }
+
+    public void StartGame() {
+        this.scoreboardManager.ResetScore();
+        timerIsRunning = true;
     }
 
     private void SpawnRandomTargetsIfNeeded() {
