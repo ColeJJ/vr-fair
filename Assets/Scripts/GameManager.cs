@@ -62,6 +62,11 @@ public class GameManager : MonoBehaviour
         timerIsRunning = true;
     }
 
+    public void CancelGame() { 
+        internalTime = 0;
+        scoreboardManager.ResetScore();
+    }
+
     private void SpawnRandomTargetsIfNeeded() {
         if(targetRowManagers.Where(n => n.HasActiveTargets()).Any() || targetsSpawning) { return; }
         StartCoroutine(SpawnRandomTargets());

@@ -34,7 +34,7 @@ public class MenuManager : MonoBehaviour
             gameManager.StartGame();
             gameRunning = true;
         } else {
-            print("Cancel game");
+            gameManager.CancelGame();
         }
     }
 }
