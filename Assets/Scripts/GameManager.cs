@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
 {
     public TargetRowManager[] targetRowManagers;
     public ScoreboardManager scoreboardManager;
-    public TargetRowConfiguration[] targetRowConfigurations;
     public float spawnDelay;
     public float gameTime;
 
@@ -23,20 +22,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        targetRowConfigurations = new TargetRowConfiguration[] {
-            new TargetRowConfiguration {
-                targetSpawnCount = 3,
-                colorDisplayCount = 1,
-                heavyTargetCount = 1,
-                heavyTargetSpawnCount = 1
-            },
-            new TargetRowConfiguration {
-                targetSpawnCount = 2,
-                colorDisplayCount = 1,
-                heavyTargetCount = 0,
-                heavyTargetSpawnCount = 0
-            }
-        };
+
     }
 
     void Update()
@@ -54,9 +40,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartGame() { 
+    public void StartGame(GameLevel level) { 
         ResetTargets();       
-        SetTargetConfigurations(targetRowConfigurations);
+        SetTargetConfigurations(level.targetRowConfigurations);
         scoreboardManager.ResetScore();
         internalTime = gameTime;
         timerIsRunning = true;
