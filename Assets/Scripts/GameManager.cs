@@ -11,50 +11,50 @@ public enum ColorType {
 
 public class GameManager : MonoBehaviour
 {
-    public TargetManager[] targetManagers;
+    public TargetRowManager[] targetRowManagers;
     public ScoreboardManager scoreboardManager;
     public float spawnDelay;
-    public int targetSpawnCount;
-    public int colorDisplayCount;
-    public int heavyTargetCount;
-    public int heavyTargetSpawnCount;
     public float gameTime;
 
-    private TargetManager[] targetManagersNormal;
-    private TargetManager[] targetManagersHeavy;
-    private bool timerIsRunning = true;
+    public bool timerIsRunning = false;
     private bool targetsSpawning = false;
+    private float internalTime;
 
     void Start()
     {
-        var (targetManagersHeavy, targetManagersNormal) = SplitOffRandomTargets(targetManagers, heavyTargetCount);
-        foreach(TargetManager targetManager in targetManagersHeavy) { 
-            targetManager.SetTargetType(TargetType.Heavy);
-        }
-        this.targetManagersNormal = targetManagersNormal;
-        this.targetManagersHeavy = targetManagersHeavy;
-        this.scoreboardManager.ResetScore();
 
-        UpdateTargetStates(targetManagers, TargetState.Down);
     }
 
     void Update()
     {
         if (timerIsRunning) {
-            if (gameTime > 0) {
-                gameTime -= Time.deltaTime;
+            if (internalTime > 0) {
+                internalTime -= Time.deltaTime;
                 SpawnRandomTargetsIfNeeded();
             } else {
-                gameTime = 0;
-                UpdateTargetStates(targetManagers, TargetState.Down);
+                internalTime = 0;
                 timerIsRunning = false;
+                UpdateTargetStates(TargetState.Down);
             }
-            scoreboardManager.UpdateTime(gameTime);
+            scoreboardManager.UpdateTime(internalTime);
         }
     }
 
+    public void StartGame(GameLevel level) { 
+        ResetTargets();       
+        SetTargetConfigurations(level.targetRowConfigurations);
+        scoreboardManager.ResetScore();
+        internalTime = gameTime;
+        timerIsRunning = true;
+    }
+
+    public void CancelGame() { 
+        internalTime = 0;
+        scoreboardManager.ResetScore();
+    }
+
     private void SpawnRandomTargetsIfNeeded() {
-        if(targetManagers.Where(n => n.state == TargetState.Up).Any() || targetsSpawning) { return; }
+        if(targetRowManagers.Where(n => n.HasActiveTargets()).Any() || targetsSpawning) { return; }
         StartCoroutine(SpawnRandomTargets());
     }
 
@@ -62,45 +62,29 @@ public class GameManager : MonoBehaviour
         targetsSpawning = true;
         yield return new WaitForSeconds(spawnDelay);
 
-        var (heavyTargetsToSpawn, _) = SplitOffRandomTargets(targetManagersHeavy, heavyTargetSpawnCount);
-        var (normalTargetsToSpawn, _) = SplitOffRandomTargets(targetManagersNormal, targetSpawnCount);
-        UpdateTargetColorTypes(normalTargetsToSpawn, colorDisplayCount);
-
-        var targetsToSpawn = heavyTargetsToSpawn.Concat(normalTargetsToSpawn).ToArray();
-        UpdateTargetStates(targetsToSpawn, TargetState.Up);
+        foreach(TargetRowManager targetRowManager in targetRowManagers) {
+            targetRowManager.SpawnRandomTargets();
+        }
 
         yield return new WaitForSeconds(1f);
         targetsSpawning = false;
     }
 
-    private (TargetManager[], TargetManager[]) SplitOffRandomTargets(TargetManager[] targetManagers, int count) {
-        var remainderList = new List<TargetManager>(targetManagers);
-        var splittedList = new List<TargetManager>();
-        for(int i = 0; i < count; i++) {
-            int index = Random.Range(0, remainderList.Count);
-            splittedList.Add(remainderList[index]);
-            remainderList.RemoveAt(index);
+    private void UpdateTargetStates(TargetState state) {
+        foreach(TargetRowManager targetRowManager in targetRowManagers) {
+            targetRowManager.UpdateTargetStates(state);
         }
-
-        return (splittedList.ToArray(), remainderList.ToArray());
     }
 
-    private void UpdateTargetColorTypes(TargetManager[] targetManagers, int displayCount) {
-        var (coloredTargets, nonColoredTargets) = SplitOffRandomTargets(targetManagers, displayCount);
-
-        foreach(TargetManager targetManager in coloredTargets) {
-            ColorType colorType = Random.Range(0, 2) == 1 ? ColorType.Green : ColorType.Red;
-            targetManager.UpdateTargetColorType(colorType);
+    private void SetTargetConfigurations(TargetRowConfiguration[] configurations) {
+        for(int i = 0; i < targetRowManagers.Length; i++) {
+            targetRowManagers[i].Setup(configurations[i]);
         }
-
-        foreach(TargetManager targetManager in nonColoredTargets) {
-            targetManager.UpdateTargetColorType(ColorType.None);
-        } 
     }
 
-    private void UpdateTargetStates(TargetManager[] targetManagers, TargetState state) {
-        foreach(TargetManager targetManager in targetManagers) {
-            targetManager.UpdateTargetState(state);
+    private void ResetTargets() {
+        foreach(TargetRowManager targetRowManager in targetRowManagers) {
+            targetRowManager.Reset();
         }
     }
 }
