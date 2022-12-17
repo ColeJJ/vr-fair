@@ -17,8 +17,8 @@ public enum TargetType {
 public class TargetManager : MonoBehaviour
 {
     public ScoreboardManager scoreboardManager;
-    public GameObject canvas;
-    public GameObject colorDisplay;
+    // public GameObject canvas;
+    // public GameObject colorDisplay;
     public TargetState state = TargetState.Up;
     public int totalHitpoints = 1;
     public int scorePoints;
@@ -34,7 +34,7 @@ public class TargetManager : MonoBehaviour
     {
         targetJoint = GetComponent<HingeJoint>();
         rb = GetComponent<Rigidbody>();
-        hitpointText = canvas.transform.GetChild(0).GetComponent<TMP_Text>();
+        // hitpointText = canvas.transform.GetChild(0).GetComponent<TMP_Text>();
 
         hitpoints = totalHitpoints;
     }
@@ -50,9 +50,9 @@ public class TargetManager : MonoBehaviour
             state = TargetState.Down;
         }
 
-        if(canvas.activeSelf) {
-            hitpointText.text = hitpoints > 0 ? hitpoints.ToString() : "";
-        }
+        // if(canvas.activeSelf) {
+        //     hitpointText.text = hitpoints > 0 ? hitpoints.ToString() : "";
+        // }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -88,21 +88,21 @@ public class TargetManager : MonoBehaviour
 
     public void UpdateTargetColorType(ColorType colorType) {
         this.colorType = colorType;
-        switch(colorType) {
-            case ColorType.None:
-                colorDisplay.SetActive(false);
-                break;
-            case ColorType.Green:
-                Material greenMaterial = Resources.Load("Material/Color Type Green", typeof(Material)) as Material;
-                colorDisplay.GetComponent<Renderer>().material = greenMaterial;
-                colorDisplay.SetActive(true);
-                break;
-            case ColorType.Red:
-                Material redMaterial = Resources.Load("Material/Color Type Red", typeof(Material)) as Material;
-                colorDisplay.GetComponent<Renderer>().material = redMaterial;
-                colorDisplay.SetActive(true);
-                break;
-        }
+        // switch(colorType) {
+        //     case ColorType.None:
+        //         colorDisplay.SetActive(false);
+        //         break;
+        //     case ColorType.Green:
+        //         Material greenMaterial = Resources.Load("Material/Color Type Green", typeof(Material)) as Material;
+        //         colorDisplay.GetComponent<Renderer>().material = greenMaterial;
+        //         colorDisplay.SetActive(true);
+        //         break;
+        //     case ColorType.Red:
+        //         Material redMaterial = Resources.Load("Material/Color Type Red", typeof(Material)) as Material;
+        //         colorDisplay.GetComponent<Renderer>().material = redMaterial;
+        //         colorDisplay.SetActive(true);
+        //         break;
+        // }
     }
 
     public void SetTargetType(TargetType type) {
@@ -110,14 +110,14 @@ public class TargetManager : MonoBehaviour
             case TargetType.Normal:
                 totalHitpoints = 1;
                 scorePointsMultiplier = 1;
-                canvas.SetActive(false);
+                // canvas.SetActive(false);
                 Material standardMaterial = Resources.Load("Material/Target Standard Material", typeof(Material)) as Material;
                 SetMaterial(standardMaterial);
                 break;
             case TargetType.Heavy:
                 totalHitpoints = 5;
                 scorePointsMultiplier = 5;
-                canvas.SetActive(true);
+                // canvas.SetActive(true);
                 Material heavyMaterial = Resources.Load("Material/Target Heavy Material", typeof(Material)) as Material;
                 SetMaterial(heavyMaterial);
                 break;
