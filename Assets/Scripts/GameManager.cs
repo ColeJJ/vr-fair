@@ -22,7 +22,36 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-
+        GameLevel testLevel = new GameLevel {
+            name = "Level 1",
+            targetRowConfigurations = new TargetRowConfiguration[] {
+                new TargetRowConfiguration {
+                    targetSpawnCount = 2,
+                    colorDisplayCount = 0,
+                    heavyTargetCount = 2,
+                    heavyTargetSpawnCount = 1
+                },
+                new TargetRowConfiguration {
+                    targetSpawnCount = 2,
+                    colorDisplayCount = 0,
+                    heavyTargetCount = 0,
+                    heavyTargetSpawnCount = 0
+                },
+                new TargetRowConfiguration {
+                    targetSpawnCount = 1,
+                    colorDisplayCount = 0,
+                    heavyTargetCount = 0,
+                    heavyTargetSpawnCount = 0
+                },
+                new TargetRowConfiguration {
+                    targetSpawnCount = 1,
+                    colorDisplayCount = 0,
+                    heavyTargetCount = 0,
+                    heavyTargetSpawnCount = 0
+                }
+            }
+        };
+        StartGame(testLevel);
     }
 
     void Update()

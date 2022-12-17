@@ -41,11 +41,11 @@ public class TargetManager : MonoBehaviour
 
     void Update()
     {
-        if(transform.localRotation.eulerAngles.x < 0.1) {
+        if(transform.localRotation.eulerAngles.z < 0.1) {
             targetJoint.useSpring = false;
             rb.isKinematic = hitpoints > 1;
             state = TargetState.Up;
-        } else if(transform.localRotation.eulerAngles.x > 89.9) {
+        } else if(transform.localRotation.eulerAngles.z > 89.9) {
             targetJoint.useMotor = false;
             state = TargetState.Down;
         }
