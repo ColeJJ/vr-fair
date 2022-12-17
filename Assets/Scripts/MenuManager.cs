@@ -59,30 +59,54 @@ public class MenuManager : MonoBehaviour
 public class LevelProvider {
     public static GameLevel[] levels = new GameLevel[] {
             new GameLevel {
-                name = "Level 1",
+            name = "Level 1",
+            targetRowConfigurations = new TargetRowConfiguration[] {
+                new TargetRowConfiguration {
+                    targetSpawnCount = 2,
+                    colorDisplayCount = 0,
+                    heavyTargetCount = 0,
+                    heavyTargetSpawnCount = 0
+                },
+                new TargetRowConfiguration {
+                    targetSpawnCount = 2,
+                    colorDisplayCount = 0,
+                    heavyTargetCount = 0,
+                    heavyTargetSpawnCount = 0
+                },
+                new TargetRowConfiguration {
+                    targetSpawnCount = 2,
+                    colorDisplayCount = 0,
+                    heavyTargetCount = 0,
+                    heavyTargetSpawnCount = 0
+                },
+                new TargetRowConfiguration {
+                    targetSpawnCount = 0,
+                    colorDisplayCount = 0,
+                    heavyTargetCount = 0,
+                    heavyTargetSpawnCount = 0
+                }
+            }
+        },
+            new GameLevel {
+                name = "Level 2",
                 targetRowConfigurations = new TargetRowConfiguration[] {
                     new TargetRowConfiguration {
-                        targetSpawnCount = 4,
+                        targetSpawnCount = 1,
                         colorDisplayCount = 0,
                         heavyTargetCount = 0,
                         heavyTargetSpawnCount = 0
+                    },
+                    new TargetRowConfiguration {
+                        targetSpawnCount = 0,
+                        colorDisplayCount = 0,
+                        heavyTargetCount = 2,
+                        heavyTargetSpawnCount = 1
                     },
                     new TargetRowConfiguration {
                         targetSpawnCount = 2,
                         colorDisplayCount = 0,
                         heavyTargetCount = 0,
                         heavyTargetSpawnCount = 0
-                    }
-                }
-            },
-            new GameLevel {
-                name = "Level 2",
-                targetRowConfigurations = new TargetRowConfiguration[] {
-                    new TargetRowConfiguration {
-                        targetSpawnCount = 3,
-                        colorDisplayCount = 0,
-                        heavyTargetCount = 1,
-                        heavyTargetSpawnCount = 1
                     },
                     new TargetRowConfiguration {
                         targetSpawnCount = 2,
@@ -96,14 +120,26 @@ public class LevelProvider {
                 name = "Level 3",
                 targetRowConfigurations = new TargetRowConfiguration[] {
                     new TargetRowConfiguration {
-                        targetSpawnCount = 3,
-                        colorDisplayCount = 2,
-                        heavyTargetCount = 1,
+                        targetSpawnCount = 0,
+                        colorDisplayCount = 0,
+                        heavyTargetCount = 0,
+                        heavyTargetSpawnCount = 0
+                    },
+                    new TargetRowConfiguration {
+                        targetSpawnCount = 2,
+                        colorDisplayCount = 0,
+                        heavyTargetCount = 0,
+                        heavyTargetSpawnCount = 0
+                    },
+                    new TargetRowConfiguration {
+                        targetSpawnCount = 1,
+                        colorDisplayCount = 0,
+                        heavyTargetCount = 2,
                         heavyTargetSpawnCount = 1
                     },
                     new TargetRowConfiguration {
                         targetSpawnCount = 2,
-                        colorDisplayCount = 1,
+                        colorDisplayCount = 0,
                         heavyTargetCount = 0,
                         heavyTargetSpawnCount = 0
                     }
