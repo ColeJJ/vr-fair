@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18055104, g: 0.2260358, b: 0.30707285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18055125, g: 0.22603622, b: 0.30707356, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -979,8 +979,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreboardManager: {fileID: 385966577}
-  canvas: {fileID: 1586767899}
-  colorDisplay: {fileID: 217400137}
   state: 1
   totalHitpoints: 1
   scorePoints: 2
@@ -1615,8 +1613,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreboardManager: {fileID: 385966577}
-  canvas: {fileID: 369410120}
-  colorDisplay: {fileID: 1188761470}
   state: 1
   totalHitpoints: 1
   scorePoints: 1
@@ -1890,8 +1886,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreboardManager: {fileID: 385966577}
-  canvas: {fileID: 840560776}
-  colorDisplay: {fileID: 1530388846}
   state: 1
   totalHitpoints: 1
   scorePoints: 2
@@ -3897,8 +3891,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreboardManager: {fileID: 385966577}
-  canvas: {fileID: 1336438489}
-  colorDisplay: {fileID: 299295774}
   state: 1
   totalHitpoints: 1
   scorePoints: 1
@@ -4138,8 +4130,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreboardManager: {fileID: 385966577}
-  canvas: {fileID: 257415077}
-  colorDisplay: {fileID: 1244315148}
   state: 1
   totalHitpoints: 1
   scorePoints: 1
@@ -4564,8 +4554,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreboardManager: {fileID: 385966577}
-  canvas: {fileID: 1301482927}
-  colorDisplay: {fileID: 937263875}
   state: 1
   totalHitpoints: 1
   scorePoints: 1
@@ -4739,8 +4727,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreboardManager: {fileID: 385966577}
-  canvas: {fileID: 1078830387}
-  colorDisplay: {fileID: 1008764260}
   state: 1
   totalHitpoints: 1
   scorePoints: 2
@@ -11118,8 +11104,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreboardManager: {fileID: 385966577}
-  canvas: {fileID: 1056499801}
-  colorDisplay: {fileID: 1443809184}
   state: 1
   totalHitpoints: 1
   scorePoints: 2
@@ -11638,8 +11622,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreboardManager: {fileID: 385966577}
-  canvas: {fileID: 1154872415}
-  colorDisplay: {fileID: 1706271009}
   state: 1
   totalHitpoints: 1
   scorePoints: 2
@@ -15443,8 +15425,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreboardManager: {fileID: 385966577}
-  canvas: {fileID: 1227396374}
-  colorDisplay: {fileID: 694409849}
   state: 1
   totalHitpoints: 1
   scorePoints: 1
@@ -16155,8 +16135,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreboardManager: {fileID: 385966577}
-  canvas: {fileID: 650690874}
-  colorDisplay: {fileID: 244577014}
   state: 1
   totalHitpoints: 1
   scorePoints: 1
@@ -16396,8 +16374,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreboardManager: {fileID: 385966577}
-  canvas: {fileID: 857291834}
-  colorDisplay: {fileID: 201348629}
   state: 1
   totalHitpoints: 1
   scorePoints: 2
@@ -16835,8 +16811,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreboardManager: {fileID: 385966577}
-  canvas: {fileID: 1060417568}
-  colorDisplay: {fileID: 440805212}
   state: 1
   totalHitpoints: 1
   scorePoints: 2
@@ -18873,8 +18847,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreboardManager: {fileID: 385966577}
-  canvas: {fileID: 1261783560}
-  colorDisplay: {fileID: 897125988}
   state: 1
   totalHitpoints: 1
   scorePoints: 1
@@ -19569,6 +19541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightTeleportation: {fileID: 979281476}
+  leftInteractionRay: {fileID: 0}
   rightActivate:
     m_UseReference: 1
     m_Action:
@@ -19595,7 +19568,30 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
-  leftRay: {fileID: 0}
+  leftCancel:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  leftActive:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
 --- !u!114 &1852461746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20635,6 +20631,134 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1920619768}
   m_CullTransparentMesh: 1
+--- !u!1 &1940035041
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1940035043}
+  - component: {fileID: 1940035042}
+  m_Layer: 0
+  m_Name: AmbientMusic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &1940035042
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940035041}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: ec407a043ce9d5e498afd71393708c2e, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.137
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &1940035043
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940035041}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.154102, y: 1.898631, z: -5.8087306}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1941048709
 GameObject:
   m_ObjectHideFlags: 0
@@ -20941,8 +21065,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreboardManager: {fileID: 385966577}
-  canvas: {fileID: 457122868}
-  colorDisplay: {fileID: 1325325949}
   state: 1
   totalHitpoints: 1
   scorePoints: 1
@@ -21801,8 +21923,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreboardManager: {fileID: 385966577}
-  canvas: {fileID: 410509021}
-  colorDisplay: {fileID: 244967306}
   state: 1
   totalHitpoints: 1
   scorePoints: 2

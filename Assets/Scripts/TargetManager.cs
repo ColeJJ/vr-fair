@@ -30,8 +30,11 @@ public class TargetManager : MonoBehaviour
     private int hitpoints;
     private int scorePointsMultiplier = 1;
 
+    private AudioSource mAudioSrc;
+
     void Start()
     {
+        mAudioSrc = GetComponent<AudioSource>();
         targetJoint = GetComponent<HingeJoint>();
         rb = GetComponent<Rigidbody>();
         // hitpointText = canvas.transform.GetChild(0).GetComponent<TMP_Text>();
@@ -65,6 +68,7 @@ public class TargetManager : MonoBehaviour
         hitpoints -= 1;
 
         if(hitpoints == 0) {
+            mAudioSrc.Play();
             state = TargetState.Hit;
             scoreboardManager.UpdateScore(scorePoints * scorePointsMultiplier);
         }
