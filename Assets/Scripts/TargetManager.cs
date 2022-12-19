@@ -18,10 +18,18 @@ public class TargetManager : MonoBehaviour
 {
     public ScoreboardManager scoreboardManager;
     // public GameObject canvas;
-    // public GameObject colorDisplay;
     public TargetState state = TargetState.Up;
     public int totalHitpoints = 1;
     public int scorePoints;
+
+    // parts of the target
+    public GameObject hitArea;
+    public GameObject stem;
+    public GameObject colorDisplay;
+
+    public Renderer hitAreaRenderer;
+    public Renderer stemRenderer;
+    public Renderer colorDisplayRenderer;
 
     private HingeJoint targetJoint;
     private Rigidbody rb;
@@ -40,6 +48,16 @@ public class TargetManager : MonoBehaviour
         // hitpointText = canvas.transform.GetChild(0).GetComponent<TMP_Text>();
 
         hitpoints = totalHitpoints;
+
+        hitArea = this.gameObject.transform.GetChild(0).gameObject;
+        stem = this.gameObject.transform.GetChild(1).gameObject;
+        colorDisplay = this.gameObject.transform.GetChild(2).gameObject;
+
+        hitAreaRenderer = hitArea.GetComponent<Renderer>();
+        stemRenderer = stem.GetComponent<Renderer>();
+        colorDisplayRenderer = colorDisplay.GetComponent<Renderer>();
+
+        colorDisplay.SetActive(false);
     }
 
     void Update()
@@ -92,21 +110,21 @@ public class TargetManager : MonoBehaviour
 
     public void UpdateTargetColorType(ColorType colorType) {
         this.colorType = colorType;
-        // switch(colorType) {
-        //     case ColorType.None:
-        //         colorDisplay.SetActive(false);
-        //         break;
-        //     case ColorType.Green:
-        //         Material greenMaterial = Resources.Load("Material/Color Type Green", typeof(Material)) as Material;
-        //         colorDisplay.GetComponent<Renderer>().material = greenMaterial;
-        //         colorDisplay.SetActive(true);
-        //         break;
-        //     case ColorType.Red:
-        //         Material redMaterial = Resources.Load("Material/Color Type Red", typeof(Material)) as Material;
-        //         colorDisplay.GetComponent<Renderer>().material = redMaterial;
-        //         colorDisplay.SetActive(true);
-        //         break;
-        // }
+           switch(colorType) {
+               case ColorType.None:
+                   colorDisplay.SetActive(false);
+                   break;
+               case ColorType.Green:
+                   Material greenMaterial = Resources.Load("Material/Color Type Green", typeof(Material)) as Material;
+                   colorDisplayRenderer.material = greenMaterial;
+                   colorDisplay.SetActive(true);
+                   break;
+               case ColorType.Red:
+                   Material redMaterial = Resources.Load("Material/Color Type Red", typeof(Material)) as Material;
+                   colorDisplayRenderer.material = redMaterial;
+                   colorDisplay.SetActive(true);
+                   break;
+           }
     }
 
     public void SetTargetType(TargetType type) {
@@ -116,14 +134,18 @@ public class TargetManager : MonoBehaviour
                 scorePointsMultiplier = 1;
                 // canvas.SetActive(false);
                 Material standardMaterial = Resources.Load("Material/Target Standard Material", typeof(Material)) as Material;
-                SetMaterial(standardMaterial);
+                hitAreaRenderer.material = standardMaterial;
+                stemRenderer.material = standardMaterial;
+                // SetMaterial(standardMaterial);
                 break;
             case TargetType.Heavy:
                 totalHitpoints = 5;
                 scorePointsMultiplier = 5;
                 // canvas.SetActive(true);
                 Material heavyMaterial = Resources.Load("Material/Target Heavy Material", typeof(Material)) as Material;
-                SetMaterial(heavyMaterial);
+                hitAreaRenderer.material = heavyMaterial;
+                stemRenderer.material = heavyMaterial;
+                // SetMaterial(heavyMaterial);
                 break;
         }
     }
