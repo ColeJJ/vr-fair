@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum TargetState {
     Up,
@@ -17,11 +18,20 @@ public enum TargetType {
 public class TargetManager : MonoBehaviour
 {
     public ScoreboardManager scoreboardManager;
+<<<<<<< Updated upstream
     // public GameObject canvas;
+=======
+>>>>>>> Stashed changes
     public TargetState state = TargetState.Up;
     public int totalHitpoints = 1;
     public int scorePoints;
 
+<<<<<<< Updated upstream
+=======
+    public GameObject canvas;
+    public Slider slider;
+
+>>>>>>> Stashed changes
     // parts of the target
     public GameObject hitArea;
     public GameObject stem;
@@ -45,7 +55,6 @@ public class TargetManager : MonoBehaviour
         mAudioSrc = GetComponent<AudioSource>();
         targetJoint = GetComponent<HingeJoint>();
         rb = GetComponent<Rigidbody>();
-        // hitpointText = canvas.transform.GetChild(0).GetComponent<TMP_Text>();
 
         hitpoints = totalHitpoints;
 
@@ -56,8 +65,16 @@ public class TargetManager : MonoBehaviour
         hitAreaRenderer = hitArea.GetComponent<Renderer>();
         stemRenderer = stem.GetComponent<Renderer>();
         colorDisplayRenderer = colorDisplay.GetComponent<Renderer>();
+<<<<<<< Updated upstream
 
         colorDisplay.SetActive(false);
+=======
+        colorDisplay.SetActive(false);
+
+        canvas = this.gameObject.transform.GetChild(3).gameObject;
+        slider = canvas.transform.GetChild(0).GetComponent<Slider>();
+        canvas.SetActive(false);
+>>>>>>> Stashed changes
     }
 
     void Update()
@@ -71,9 +88,10 @@ public class TargetManager : MonoBehaviour
             state = TargetState.Down;
         }
 
-        // if(canvas.activeSelf) {
-        //     hitpointText.text = hitpoints > 0 ? hitpoints.ToString() : "";
-        // }
+        if (canvas.activeSelf) {
+            slider.value = hitpoints > 0 ? hitpoints : 0;
+            // hitpointText.text = hitpoints > 0 ? hitpoints.ToString() : "";
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -132,20 +150,33 @@ public class TargetManager : MonoBehaviour
             case TargetType.Normal:
                 totalHitpoints = 1;
                 scorePointsMultiplier = 1;
-                // canvas.SetActive(false);
+
+                canvas.SetActive(false);
+
                 Material standardMaterial = Resources.Load("Material/Target Standard Material", typeof(Material)) as Material;
                 hitAreaRenderer.material = standardMaterial;
                 stemRenderer.material = standardMaterial;
+<<<<<<< Updated upstream
                 // SetMaterial(standardMaterial);
+=======
+                
+>>>>>>> Stashed changes
                 break;
             case TargetType.Heavy:
                 totalHitpoints = 5;
                 scorePointsMultiplier = 5;
-                // canvas.SetActive(true);
+
+                canvas.SetActive(true);
+                slider.value = totalHitpoints;
+
                 Material heavyMaterial = Resources.Load("Material/Target Heavy Material", typeof(Material)) as Material;
                 hitAreaRenderer.material = heavyMaterial;
                 stemRenderer.material = heavyMaterial;
+<<<<<<< Updated upstream
                 // SetMaterial(heavyMaterial);
+=======
+                
+>>>>>>> Stashed changes
                 break;
         }
     }
