@@ -104,13 +104,13 @@ public class LevelProvider {
                     },
                     new TargetRowConfiguration {
                         targetSpawnCount = 2,
-                        colorDisplayCount = 0,
+                        colorDisplayCount = 1,
                         heavyTargetCount = 0,
                         heavyTargetSpawnCount = 0
                     },
                     new TargetRowConfiguration {
                         targetSpawnCount = 2,
-                        colorDisplayCount = 0,
+                        colorDisplayCount = 1,
                         heavyTargetCount = 0,
                         heavyTargetSpawnCount = 0
                     }
@@ -132,7 +132,7 @@ public class LevelProvider {
                         heavyTargetSpawnCount = 0
                     },
                     new TargetRowConfiguration {
-                        targetSpawnCount = 1,
+                        targetSpawnCount = 0,
                         colorDisplayCount = 0,
                         heavyTargetCount = 2,
                         heavyTargetSpawnCount = 1
