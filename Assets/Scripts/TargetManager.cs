@@ -18,20 +18,13 @@ public enum TargetType {
 public class TargetManager : MonoBehaviour
 {
     public ScoreboardManager scoreboardManager;
-<<<<<<< Updated upstream
-    // public GameObject canvas;
-=======
->>>>>>> Stashed changes
     public TargetState state = TargetState.Up;
     public int totalHitpoints = 1;
     public int scorePoints;
 
-<<<<<<< Updated upstream
-=======
     public GameObject canvas;
     public Slider slider;
 
->>>>>>> Stashed changes
     // parts of the target
     public GameObject hitArea;
     public GameObject stem;
@@ -65,16 +58,11 @@ public class TargetManager : MonoBehaviour
         hitAreaRenderer = hitArea.GetComponent<Renderer>();
         stemRenderer = stem.GetComponent<Renderer>();
         colorDisplayRenderer = colorDisplay.GetComponent<Renderer>();
-<<<<<<< Updated upstream
-
-        colorDisplay.SetActive(false);
-=======
         colorDisplay.SetActive(false);
 
         canvas = this.gameObject.transform.GetChild(3).gameObject;
         slider = canvas.transform.GetChild(0).GetComponent<Slider>();
         canvas.SetActive(false);
->>>>>>> Stashed changes
     }
 
     void Update()
@@ -156,11 +144,7 @@ public class TargetManager : MonoBehaviour
                 Material standardMaterial = Resources.Load("Material/Target Standard Material", typeof(Material)) as Material;
                 hitAreaRenderer.material = standardMaterial;
                 stemRenderer.material = standardMaterial;
-<<<<<<< Updated upstream
-                // SetMaterial(standardMaterial);
-=======
                 
->>>>>>> Stashed changes
                 break;
             case TargetType.Heavy:
                 totalHitpoints = 5;
@@ -172,11 +156,7 @@ public class TargetManager : MonoBehaviour
                 Material heavyMaterial = Resources.Load("Material/Target Heavy Material", typeof(Material)) as Material;
                 hitAreaRenderer.material = heavyMaterial;
                 stemRenderer.material = heavyMaterial;
-<<<<<<< Updated upstream
-                // SetMaterial(heavyMaterial);
-=======
                 
->>>>>>> Stashed changes
                 break;
         }
     }
