@@ -12,11 +12,18 @@ public class FireBulletOnActivate : MonoBehaviour
     public float fireSpeed = 20;
     private AudioSource mAudioSrc;
 
+    public HapticTrigger activatedHapticTrigger;
+    public HapticTrigger hoverEnteredHapticTrigger;
+
     // Start is called before the first frame update
     void Start()
     {
         XRGrabInteractable grabbable = GetComponent<XRGrabInteractable>();
+        XRBaseInteractable interactable = GetComponent<XRBaseInteractable>();
         grabbable.activated.AddListener(FireBullet);
+        grabbable.activated.AddListener(activatedHapticTrigger.TriggerHaptic);
+        grabbable.hoverEntered.AddListener(hoverEnteredHapticTrigger.TriggerHaptic);
+        // interactable.activated.AddListener(TriggerHaptic);
         mAudioSrc = GetComponent<AudioSource>();
     }
 
@@ -34,4 +41,5 @@ public class FireBulletOnActivate : MonoBehaviour
         spawnedBullet.GetComponent<Rigidbody>().velocity = spawnPoint.forward * fireSpeed;
         Destroy(spawnedBullet, 5);
     }
+
 }

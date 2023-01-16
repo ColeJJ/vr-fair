@@ -4758,6 +4758,12 @@ MonoBehaviour:
   bullet: {fileID: 7580990556074864469, guid: 25cc3b99b93fc4cb8bda91b8c251a8f8, type: 3}
   spawnPoint: {fileID: 1609232863}
   fireSpeed: 20
+  activatedHapticTrigger:
+    hapticIntensity: 0.3
+    hapticDuration: 0.3
+  hoverEnteredHapticTrigger:
+    hapticIntensity: 0.2
+    hapticDuration: 0.2
 --- !u!114 &1543415355
 MonoBehaviour:
   m_ObjectHideFlags: 0
