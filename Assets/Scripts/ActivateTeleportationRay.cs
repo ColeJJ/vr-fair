@@ -7,17 +7,14 @@ using UnityEngine.InputSystem;
 public class ActivateTeleportationRay : MonoBehaviour
 {
 
-    public GameObject rightTeleportation;
-    public GameObject leftInteractionRay;
-    public InputActionProperty rightActivate;
-    public InputActionProperty rightCancel;
-    public InputActionProperty leftCancel;
-    public InputActionProperty leftActive;
-
+    public GameObject teleportationRay;
+    public InputActionProperty activateAction;
+    
     // Update is called once per frame
     void Update()
     {
-        rightTeleportation.SetActive(rightCancel.action.ReadValue<float>() == 0 && rightActivate.action.ReadValue<float>() > 0.1f);       
-        leftInteractionRay.SetActive(leftCancel.action.ReadValue<float>() == 0 && leftActive.action.ReadValue<float>() > 0.1f);       
+        // print(activateAction.action.ReadValue<Vector2>());
+        teleportationRay.SetActive(activateAction.action.ReadValue<Vector2>().y > 0.1f); 
+        // teleportationRay.SetActive(activateAction.action.ReadValue<float>() > 0.1f);      
     }
 }
