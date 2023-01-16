@@ -3,12 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public enum ColorType {
-    None,
-    Red,
-    Green
-}
-
 public class GameManager : MonoBehaviour
 {
     public TargetRowManager[] targetRowManagers;

@@ -7,7 +7,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class HapticTrigger
 {
 
-    // Haptic Feedback
     [Range(0, 1)]
     public float hapticIntensity;
     public float hapticDuration;
