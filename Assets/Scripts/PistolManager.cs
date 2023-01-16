@@ -12,11 +12,16 @@ public class PistolManager : MonoBehaviour
     public float fireSpeed = 20;
     private AudioSource mAudioSrc;
 
+    public HapticTrigger activatedHapticTrigger;
+    public HapticTrigger hoverEnteredHapticTrigger;
+
     // Start is called before the first frame update
     void Start()
     {
         XRGrabInteractable grabbable = GetComponent<XRGrabInteractable>();
         grabbable.activated.AddListener(FireBullet);
+        grabbable.activated.AddListener(activatedHapticTrigger.TriggerHaptic);
+        grabbable.hoverEntered.AddListener(hoverEnteredHapticTrigger.TriggerHaptic);
         mAudioSrc = GetComponent<AudioSource>();
     }
 
