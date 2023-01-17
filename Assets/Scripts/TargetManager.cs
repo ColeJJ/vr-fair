@@ -34,6 +34,8 @@ public class TargetManager : MonoBehaviour
     public Renderer stemRenderer;
     public Renderer colorDisplayRenderer;
 
+    public AudioSource [] mTargetSounds;
+
     private HingeJoint targetJoint;
     private Rigidbody rb;
     private TMP_Text hitpointText;
@@ -46,7 +48,8 @@ public class TargetManager : MonoBehaviour
 
     void Start()
     {
-        mAudioSrc = GetComponent<AudioSource>();
+        mTargetSounds = GetComponents<AudioSource>();
+
         targetJoint = GetComponent<HingeJoint>();
         rb = GetComponent<Rigidbody>();
 
@@ -138,6 +141,8 @@ public class TargetManager : MonoBehaviour
         this.targetType = type;
         switch(type) {
             case TargetType.Normal:
+                mAudioSrc = mTargetSounds[1];
+
                 totalHitpoints = 1;
                 scorePointsMultiplier = 1;
 
@@ -149,6 +154,8 @@ public class TargetManager : MonoBehaviour
                 
                 break;
             case TargetType.Heavy:
+                mAudioSrc = mTargetSounds[0];
+
                 totalHitpoints = 5;
                 scorePointsMultiplier = 5;
 
