@@ -13,6 +13,6 @@ public class ActivateTeleportationRay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        teleportationRay.SetActive(activateAction.action.ReadValue<Vector2>().x != 0.0f || activateAction.action.ReadValue<Vector2>().y != 0.0f); 
+        teleportationRay.SetActive(activateAction.action.ReadValue<float>() >= 0.1f); 
     }
 }

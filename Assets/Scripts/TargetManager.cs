@@ -38,6 +38,7 @@ public class TargetManager : MonoBehaviour
     private Rigidbody rb;
     private TMP_Text hitpointText;
     private ColorType colorType = ColorType.None;
+    private TargetType targetType = TargetType.Normal;
     private int hitpoints;
     private int scorePointsMultiplier = 1;
 
@@ -134,6 +135,7 @@ public class TargetManager : MonoBehaviour
     }
 
     public void SetTargetType(TargetType type) {
+        this.targetType = type;
         switch(type) {
             case TargetType.Normal:
                 totalHitpoints = 1;

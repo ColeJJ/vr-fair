@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18029505, g: 0.22572652, b: 0.30692935, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1950,11 +1950,11 @@ MonoBehaviour:
   spawnPoint: {fileID: 3945871}
   fireSpeed: 20
   activatedHapticTrigger:
-    hapticIntensity: 0.3
-    hapticDuration: 0.3
+    hapticIntensity: 0
+    hapticDuration: 0
   hoverEnteredHapticTrigger:
-    hapticIntensity: 0.3
-    hapticDuration: 0.3
+    hapticIntensity: 0
+    hapticDuration: 0
 --- !u!65 &265471036
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26574,11 +26574,11 @@ MonoBehaviour:
   spawnPoint: {fileID: 1413715757}
   fireSpeed: 20
   activatedHapticTrigger:
-    hapticIntensity: 0.3
-    hapticDuration: 0.3
+    hapticIntensity: 0.1
+    hapticDuration: 0.1
   hoverEnteredHapticTrigger:
-    hapticIntensity: 0.3
-    hapticDuration: 0.3
+    hapticIntensity: 0.1
+    hapticDuration: 0.1
 --- !u!65 &1893258518
 BoxCollider:
   m_ObjectHideFlags: 0
