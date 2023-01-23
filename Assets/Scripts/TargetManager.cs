@@ -91,7 +91,7 @@ public class TargetManager : MonoBehaviour
         if(collision.gameObject.tag != "Bullet" || state != TargetState.Up) { return; }
 
         BulletManager bulletManager = collision.gameObject.GetComponent<BulletManager>();
-        if(bulletManager.collisionCount > 1 || !MatchColorType(bulletManager.colorType)) { return; }
+        if(!MatchColorType(bulletManager.colorType)) { return; }
 
         hitpoints -= 1;
 
