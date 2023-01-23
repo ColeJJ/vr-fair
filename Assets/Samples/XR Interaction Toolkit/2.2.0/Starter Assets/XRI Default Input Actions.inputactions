@@ -377,12 +377,12 @@
             "actions": [
                 {
                     "name": "Teleport Select",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "cbeaf823-3b69-4004-8ec8-13ea2ca3fc31",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Teleport Mode Activate",
@@ -452,10 +452,10 @@
                 {
                     "name": "",
                     "id": "95fa1419-ca7b-4c8a-8d15-7d46e58d82e3",
-                    "path": "<XRController>{LeftHand}/primary2DAxis",
-                    "interactions": "Sector(directions=1)",
+                    "path": "<XRController>{LeftHand}/{primary2DAxisClick}",
+                    "interactions": "",
                     "processors": "",
-                    "groups": "Noncontinuous Move",
+                    "groups": "Generic XR Controller",
                     "action": "Teleport Select",
                     "isComposite": false,
                     "isPartOfComposite": false
