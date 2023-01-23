@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     private bool targetsSpawning = false;
     private float internalTime;
 
+    private Coroutine spawnCoroutine;
+
     void Start()
     {
 
@@ -44,12 +46,14 @@ public class GameManager : MonoBehaviour
 
     public void CancelGame() { 
         internalTime = 0;
+        targetsSpawning = false;
+        StopCoroutine(spawnCoroutine);
         scoreboardManager.ResetScore();
     }
 
     private void SpawnRandomTargetsIfNeeded() {
         if(targetRowManagers.Where(n => n.HasActiveTargets()).Any() || targetsSpawning) { return; }
-        StartCoroutine(SpawnRandomTargets());
+        spawnCoroutine = StartCoroutine(SpawnRandomTargets());
     }
 
     private IEnumerator SpawnRandomTargets() {
