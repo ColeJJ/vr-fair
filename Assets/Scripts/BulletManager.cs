@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BulletManager : MonoBehaviour
 {
-    public int collisionCount = 0;
     public ColorType colorType = ColorType.None;
 
     // Start is called before the first frame update
@@ -21,7 +20,9 @@ public class BulletManager : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        collisionCount++;
+        if(collision.gameObject.tag == "Target") {
+            Destroy(this.gameObject);
+        }
     }
 
     public void SetColorType(ColorType colorType) {

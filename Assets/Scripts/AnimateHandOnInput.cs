@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,7 @@ public class AnimateHandOnInput : MonoBehaviour
     public InputActionProperty pinchAnimationAction; 
     public InputActionProperty gripAnimationAction;
     public Animator handAnimator;
+    bool gripToggle = false;
 
 
     // Start is called before the first frame update
@@ -20,8 +22,12 @@ public class AnimateHandOnInput : MonoBehaviour
     void Update()
     {
         float triggerValue = pinchAnimationAction.action.ReadValue<float>();
-        float gripValue = gripAnimationAction.action.ReadValue<float>();
         handAnimator.SetFloat("Trigger", triggerValue);
-        handAnimator.SetFloat("Grip", gripValue);
+
+        if(gripAnimationAction.action.triggered) {
+            gripToggle = !gripToggle;
+            handAnimator.SetFloat("Grip", Convert.ToSingle(gripToggle));
+        }
+
     }
 }
