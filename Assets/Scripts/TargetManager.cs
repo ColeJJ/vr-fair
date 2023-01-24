@@ -67,6 +67,7 @@ public class TargetManager : MonoBehaviour
         canvas = this.gameObject.transform.GetChild(3).gameObject;
         slider = canvas.transform.GetChild(0).GetComponent<Slider>();
         canvas.SetActive(false);
+        mAudioSrc = mTargetSounds[1];
     }
 
     void Update()
@@ -88,9 +89,10 @@ public class TargetManager : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag != "Bullet" || state != TargetState.Up) { return; }
+        if(collision.gameObject.tag != "Bullet") { return; }
         mAudioSrc.Play();
 
+        if(state != TargetState.Up) { return; }
         BulletManager bulletManager = collision.gameObject.GetComponent<BulletManager>();
         if(!MatchColorType(bulletManager.colorType)) { return; }
 
