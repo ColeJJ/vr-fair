@@ -89,10 +89,9 @@ public class TargetManager : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag != "Bullet") { return; }
+        if(collision.gameObject.tag != "Bullet" || state != TargetState.Up) { return; }
         mAudioSrc.Play();
 
-        if(state != TargetState.Up) { return; }
         BulletManager bulletManager = collision.gameObject.GetComponent<BulletManager>();
         if(!MatchColorType(bulletManager.colorType)) { return; }
 
