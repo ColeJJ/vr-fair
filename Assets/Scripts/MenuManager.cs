@@ -10,14 +10,22 @@ public struct GameLevel {
 
 public class MenuManager : MonoBehaviour
 {
+    private enum GameState {
+        Idle,
+        Starting,
+        Running
+    }
 
     public GameManager gameManager;
     public TMP_Text actionButtonText;
     public TMP_Dropdown levelSelection;
+    public float startupTime;
 
     private GameLevel[] levels;
     private int levelSelectionIndex = 0;
-    private bool gameRunning = false;
+    private bool startCounterRunning = false;
+    private GameState gameState = GameState.Idle;
+    private float internalStartupTime;
 
     // Start is called before the first frame update
     void Start()
@@ -32,13 +40,25 @@ public class MenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gameRunning) {
-            if(gameManager.timerIsRunning) {
-                actionButtonText.text = "Cancel";
-            } else {
-                actionButtonText.text = "Start";
-                gameRunning = false;
-            }
+        switch(gameState) {
+            case GameState.Idle:
+                break;
+            case GameState.Starting:
+                if(internalStartupTime > 0) {
+                    internalStartupTime -= Time.deltaTime;
+                } else {
+                    internalStartupTime = 0;
+                }
+                actionButtonText.text = string.Format("{0:0.0}", internalStartupTime);
+                break;
+            case GameState.Running:
+                if(gameManager.timerIsRunning) {
+                    actionButtonText.text = "Cancel";
+                } else {
+                    actionButtonText.text = "Start";
+                    gameState = GameState.Idle;
+                }
+                break;
         }
     }
 
@@ -47,11 +67,23 @@ public class MenuManager : MonoBehaviour
     }
 
     public void ActionButtonTapped() {
-        if(!gameRunning) {
-            gameManager.StartGame(levels[levelSelectionIndex]);
-            gameRunning = true;
-        } else {
-            gameManager.CancelGame();
+        switch(gameState) {
+            case GameState.Idle:
+                StartCoroutine(StartGame());
+                break;
+            case GameState.Starting:
+                break;
+            case GameState.Running:
+                gameManager.CancelGame();
+                break;
         }
+    }
+
+    private IEnumerator StartGame() {
+        internalStartupTime = startupTime;
+        gameState = GameState.Starting;
+        yield return new WaitForSeconds(startupTime);
+        gameManager.StartGame(levels[levelSelectionIndex]);
+        gameState = GameState.Running;
     }
 }
