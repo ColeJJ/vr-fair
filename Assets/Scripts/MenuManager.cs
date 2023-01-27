@@ -26,6 +26,7 @@ public class MenuManager : MonoBehaviour
     private bool startCounterRunning = false;
     private GameState gameState = GameState.Idle;
     private float internalStartupTime;
+    private int internalCountdown;
 
     // Start is called before the first frame update
     void Start()
@@ -44,10 +45,15 @@ public class MenuManager : MonoBehaviour
             case GameState.Idle:
                 break;
             case GameState.Starting:
-                if(internalStartupTime > 0) {
-                    internalStartupTime -= Time.deltaTime;
-                } else {
+                internalStartupTime -= Time.deltaTime;
+                if(internalStartupTime > 0 && internalStartupTime < (float)internalCountdown) {
+                    // TODO: Add start coundown sound 
+                    // print("Game start countdown sound");
+                    internalCountdown -= 1;
+                } else if(internalStartupTime <= 0) {
                     internalStartupTime = 0;
+                    gameManager.StartGame(levels[levelSelectionIndex]);
+                    gameState = GameState.Running;
                 }
                 actionButtonText.text = string.Format("{0:0.0}", internalStartupTime);
                 break;
@@ -69,7 +75,7 @@ public class MenuManager : MonoBehaviour
     public void ActionButtonTapped() {
         switch(gameState) {
             case GameState.Idle:
-                StartCoroutine(StartGame());
+                StartGame();
                 break;
             case GameState.Starting:
                 break;
@@ -79,11 +85,9 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    private IEnumerator StartGame() {
+    private void StartGame() {
         internalStartupTime = startupTime;
+        internalCountdown = (int)startupTime;
         gameState = GameState.Starting;
-        yield return new WaitForSeconds(startupTime);
-        gameManager.StartGame(levels[levelSelectionIndex]);
-        gameState = GameState.Running;
     }
 }

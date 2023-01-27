@@ -9,10 +9,14 @@ public class GameManager : MonoBehaviour
     public ScoreboardManager scoreboardManager;
     public float spawnDelay;
     public float gameTime;
+    public int countdownStart;
+    public int countdownStep;
 
     public bool timerIsRunning = false;
     private bool targetsSpawning = false;
+    private bool firstSpawn = true;
     private float internalTime;
+    private int internalCountdown;
 
     private Coroutine spawnCoroutine;
 
@@ -24,13 +28,22 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (timerIsRunning) {
+            internalTime -= Time.deltaTime;
+
             if (internalTime > 0) {
-                internalTime -= Time.deltaTime;
                 SpawnRandomTargetsIfNeeded();
+
+                if(internalTime < (float)internalCountdown) {
+                    // TODO: Add end coundown sound 
+                    // print("Game end countdown sound");
+                    internalCountdown -= countdownStep;
+                }
             } else {
                 internalTime = 0;
                 timerIsRunning = false;
                 UpdateTargetStates(TargetState.Down);
+                // TODO: Add game ended sound 
+                // print("Game ended sound");
             }
             scoreboardManager.UpdateTime(internalTime);
         }
@@ -41,7 +54,11 @@ public class GameManager : MonoBehaviour
         SetTargetConfigurations(level.targetRowConfigurations);
         scoreboardManager.ResetScore();
         internalTime = gameTime;
+        internalCountdown = countdownStart;
         timerIsRunning = true;
+        firstSpawn = true;
+        // TODO: Add start sound 
+        // print("Start Sound");
     }
 
     public void CancelGame() { 
@@ -53,7 +70,13 @@ public class GameManager : MonoBehaviour
 
     private void SpawnRandomTargetsIfNeeded() {
         if(targetRowManagers.Where(n => n.HasActiveTargets()).Any() || targetsSpawning) { return; }
+
+        if(!firstSpawn) {
+            // TODO: Add wave cleared sound 
+            // print("Wave cleared sound");
+        }
         spawnCoroutine = StartCoroutine(SpawnRandomTargets());
+        firstSpawn = false;
     }
 
     private IEnumerator SpawnRandomTargets() {
