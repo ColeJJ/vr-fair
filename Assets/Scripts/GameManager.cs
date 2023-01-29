@@ -20,9 +20,11 @@ public class GameManager : MonoBehaviour
 
     private Coroutine spawnCoroutine;
 
+    private AudioSource [] timeSounds;
+
     void Start()
     {
-
+        timeSounds = GameObject.Find("TimeSounds").GetComponents<AudioSource>();
     }
 
     void Update()
@@ -34,7 +36,8 @@ public class GameManager : MonoBehaviour
                 SpawnRandomTargetsIfNeeded();
 
                 if(internalTime < (float)internalCountdown) {
-                    // TODO: Add end coundown sound 
+                    // TODO: Add end coundown sound
+                    timeSounds[0].Play();
                     // print("Game end countdown sound");
                     internalCountdown -= countdownStep;
                 }
@@ -42,7 +45,8 @@ public class GameManager : MonoBehaviour
                 internalTime = 0;
                 timerIsRunning = false;
                 UpdateTargetStates(TargetState.Down);
-                // TODO: Add game ended sound 
+                // TODO: Add game ended sound
+                timeSounds[1].Play();
                 // print("Game ended sound");
             }
             scoreboardManager.UpdateTime(internalTime);
@@ -57,7 +61,8 @@ public class GameManager : MonoBehaviour
         internalCountdown = countdownStart;
         timerIsRunning = true;
         firstSpawn = true;
-        // TODO: Add start sound 
+        // TODO: Add start sound
+        timeSounds[3].Play();
         // print("Start Sound");
     }
 
@@ -72,7 +77,8 @@ public class GameManager : MonoBehaviour
         if(targetRowManagers.Where(n => n.HasActiveTargets()).Any() || targetsSpawning) { return; }
 
         if(!firstSpawn) {
-            // TODO: Add wave cleared sound 
+            // TODO: Add wave cleared sound
+            timeSounds[4].Play();
             // print("Wave cleared sound");
         }
         spawnCoroutine = StartCoroutine(SpawnRandomTargets());

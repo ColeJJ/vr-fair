@@ -21,6 +21,8 @@ public class MenuManager : MonoBehaviour
     public TMP_Dropdown levelSelection;
     public float startupTime;
 
+    private AudioSource [] startSounds;
+
     private GameLevel[] levels;
     private int levelSelectionIndex = 0;
     private bool startCounterRunning = false;
@@ -31,6 +33,7 @@ public class MenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        startSounds = GameObject.Find("TimeSounds").GetComponents<AudioSource>();
         levels = LevelProvider.levels;
         foreach(GameLevel level in levels) {
             levelSelection.options.Add(new TMP_Dropdown.OptionData() { text = level.name });
@@ -48,6 +51,7 @@ public class MenuManager : MonoBehaviour
                 internalStartupTime -= Time.deltaTime;
                 if(internalStartupTime > 0 && internalStartupTime < (float)internalCountdown) {
                     // TODO: Add start coundown sound 
+                    startSounds[2].Play();
                     // print("Game start countdown sound");
                     internalCountdown -= 1;
                 } else if(internalStartupTime <= 0) {
