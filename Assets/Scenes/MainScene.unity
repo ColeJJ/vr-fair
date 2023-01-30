@@ -2082,11 +2082,11 @@ MonoBehaviour:
   spawnPoint: {fileID: 3945871}
   fireSpeed: 20
   activatedHapticTrigger:
-    hapticIntensity: 0
-    hapticDuration: 0
+    hapticIntensity: 0.1
+    hapticDuration: 0.1
   hoverEnteredHapticTrigger:
-    hapticIntensity: 0
-    hapticDuration: 0
+    hapticIntensity: 0.1
+    hapticDuration: 0.1
 --- !u!65 &265471036
 BoxCollider:
   m_ObjectHideFlags: 0
