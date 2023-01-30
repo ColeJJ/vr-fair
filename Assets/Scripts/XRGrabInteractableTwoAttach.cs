@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit; 
 
-public class XRGrapInteractableTwoAttach : XRGrabInteractable 
+public class XRGrabInteractableTwoAttach : XRGrabInteractable 
 {
 
     public Transform leftAttachTransform;
@@ -11,15 +11,14 @@ public class XRGrapInteractableTwoAttach : XRGrabInteractable
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
-        if (args.interactableObject.transform.CompareTag("Left Hand"))
+        if (args.interactorObject.transform.CompareTag("Left Hand"))
         {
             attachTransform = leftAttachTransform;
         }
 
-        if (args.interactableObject.transform.CompareTag("Right Hand"))
+        if (args.interactorObject.transform.CompareTag("Right Hand"))
         {
-            attachTransform = rightAttachTransform;   
-            attachTransform.Equals(rightAttachTransform);
+            attachTransform = rightAttachTransform;
         }
 
         base.OnSelectEntered(args);
