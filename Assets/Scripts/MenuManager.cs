@@ -50,9 +50,7 @@ public class MenuManager : MonoBehaviour
             case GameState.Starting:
                 internalStartupTime -= Time.deltaTime;
                 if(internalStartupTime > 0 && internalStartupTime < (float)internalCountdown) {
-                    // TODO: Add start coundown sound 
                     startSounds[2].Play();
-                    // print("Game start countdown sound");
                     internalCountdown -= 1;
                 } else if(internalStartupTime <= 0) {
                     internalStartupTime = 0;

@@ -36,18 +36,14 @@ public class GameManager : MonoBehaviour
                 SpawnRandomTargetsIfNeeded();
 
                 if(internalTime < (float)internalCountdown) {
-                    // TODO: Add end coundown sound
                     timeSounds[0].Play();
-                    // print("Game end countdown sound");
                     internalCountdown -= countdownStep;
                 }
             } else {
                 internalTime = 0;
                 timerIsRunning = false;
                 UpdateTargetStates(TargetState.Down);
-                // TODO: Add game ended sound
                 timeSounds[1].Play();
-                // print("Game ended sound");
             }
             scoreboardManager.UpdateTime(internalTime);
         }
@@ -61,9 +57,7 @@ public class GameManager : MonoBehaviour
         internalCountdown = countdownStart;
         timerIsRunning = true;
         firstSpawn = true;
-        // TODO: Add start sound
         timeSounds[3].Play();
-        // print("Start Sound");
     }
 
     public void CancelGame() { 
@@ -77,9 +71,7 @@ public class GameManager : MonoBehaviour
         if(targetRowManagers.Where(n => n.HasActiveTargets()).Any() || targetsSpawning) { return; }
 
         if(!firstSpawn) {
-            // TODO: Add wave cleared sound
             timeSounds[4].Play();
-            // print("Wave cleared sound");
         }
         spawnCoroutine = StartCoroutine(SpawnRandomTargets());
         firstSpawn = false;
