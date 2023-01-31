@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
                 internalTime = 0;
                 timerIsRunning = false;
                 UpdateTargetStates(TargetState.Down);
+                StopCoroutine(spawnCoroutine);
                 timeSounds[1].Play();
             }
             scoreboardManager.UpdateTime(internalTime);
@@ -63,7 +64,6 @@ public class GameManager : MonoBehaviour
     public void CancelGame() { 
         internalTime = 0;
         targetsSpawning = false;
-        StopCoroutine(spawnCoroutine);
         scoreboardManager.ResetScore();
     }
 
